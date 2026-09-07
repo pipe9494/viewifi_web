@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viewifi — Detección de movimiento por WiFi</title>
+  <meta name="description" content="Convierte tu WiFi en un sensor de movimiento. Alertas con foto, audio y evidencia 3D directo a Telegram. Sin hardware extra." />
+  <link rel="canonical" href="https://pipe9494.github.io/viewifi_web/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0A0E14" />
+  <meta name="author" content="Viewifi" />
+  <meta name="keywords" content="detección de movimiento, WiFi sensing, seguridad hogar, alertas Telegram, sensor presencia, app vigilancia Android" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Viewifi" />
+  <meta property="og:url" content="https://pipe9494.github.io/viewifi_web/" />
+  <meta property="og:title" content="Viewifi — Tu WiFi ya sabe cuando alguien entra" />
+  <meta property="og:description" content="Detección de movimiento por WiFi con alertas de foto, audio y evidencia 3D en Telegram. Sin cámaras ni hardware extra." />
+  <meta property="og:image" content="https://pipe9494.github.io/viewifi_web/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Viewifi — Detección de movimiento por WiFi" />
+  <meta name="twitter:description" content="Alertas con foto, audio y evidencia 3D en Telegram. Sin cámaras, sin hardware extra, sin suscripciones." />
+  <meta name="twitter:image" content="https://pipe9494.github.io/viewifi_web/assets/og-image.png" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Viewifi",
+    "url": "https://pipe9494.github.io/viewifi_web/",
+    "description": "Detección de movimiento por WiFi con alertas de foto, audio y evidencia 3D en Telegram. Funciona en la oscuridad y a través de paredes, sin hardware extra.",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Android 8.0+",
+    "inLanguage": ["es", "en"],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "downloadUrl": "https://github.com/pipe9494/viewifi_web/releases/download/v1.0.0/viewifi.apk"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Necesito comprar algún dispositivo?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Viewifi usa la señal WiFi que ya tienes en casa. Cualquier teléfono Android con WiFi sirve como host." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Funciona en la oscuridad o a través de paredes?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sí. El sistema detecta cómo los cuerpos alteran las ondas de radio WiFi, así que no depende de luz ni de línea de vista." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Mis datos están seguros?",
+        "acceptedAnswer": { "@type": "Answer", "text": "El análisis de la señal ocurre íntegramente en el teléfono host. Solo salen las alertas que configuraste hacia tu propio bot de Telegram; ningún servidor de terceros guarda tus datos." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Puedo vigilar más de un lugar?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sí. Registra varios dispositivos en modo Host con la misma cuenta y elige a cuál enviar cada comando, o envíalos a todos." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿La app es gratuita?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Descarga el APK gratis. La funcionalidad completa está disponible sin suscripciones." }
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230A0E14'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2300E676'/%3E%3Cpath d='M8 24a11.3 11.3 0 0 1 16 0' stroke='%2300E5FF' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M4.5 20.5a16 16 0 0 1 23 0' stroke='%231B98E0' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="topbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Viewifi">
+        <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+          <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
+          <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span>Viewifi</span>
+      </a>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="#features" data-i18n="nav_features">Funciones</a>
+        <a href="#how" data-i18n="nav_how">Cómo funciona</a>
+        <a href="#modes" data-i18n="nav_modes">Modos</a>
+        <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="lang-toggle" class="lang-toggle" aria-label="Language">EN</button>
+        <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi_web/releases/download/v1.0.0/viewifi.apk" data-i18n="nav_download">Descargar</a>
+      </div>
+      <button class="nav-burger" id="nav-burger" aria-label="Menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="pill">
+            <span class="pill-dot"></span>
+            <span data-i18n="hero_badge">Detección de movimiento por WiFi</span>
+          </span>
+          <h1 data-i18n="hero_title">Tu WiFi ya sabe<br/>cuando alguien entra.</h1>
+          <p class="hero-sub" data-i18n="hero_sub">Viewifi converte la señal WiFi de tu casa en un sensor de presencia. Recibe alertas con foto, audio y evidencia 3D en Telegram — sin cámaras, sin hardware extra, sin suscripciones.</p>
+          <div class="hero-cta">
+            <a class="btn btn-filled btn-lg" href="https://github.com/pipe9494/viewifi_web/releases/download/v1.0.0/viewifi.apk">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M5 20h14v-2H5v2zM12 2 5.5 12h4v6h5v-6h4L12 2z"/></svg>
+              <span data-i18n="hero_apk">Descargar APK</span>
+            </a>
+            <a class="btn btn-outline btn-lg" href="https://play.google.com/store/apps/details?id=com.viewifi" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#00E5FF" d="M3.6 2.3 13.7 12 3.6 21.7c-.4-.3-.6-.8-.6-1.4V3.7c0-.6.2-1.1.6-1.4z"/><path fill="#00E676" d="m17.4 8.3-3.7 3.7L3.6 2.3c.3-.2.7-.3 1.1-.1l12.7 6.1z"/><path fill="#FFD600" d="m17.4 15.7-12.7 6.1c-.4.2-.8.1-1.1-.1l10.1-9.7 3.7 3.7z"/><path fill="#FF1744" d="m20.9 10.4-3.5 1.7-3.7-3.7 3.7-3.7 3.5 1.7c1.5.8 1.5 4.4 0 5.2z" transform="translate(-.5 2.5) scale(.92)"/></svg>
+              <span data-i18n="hero_play">Google Play</span>
+            </a>
+          </div>
+          <ul class="hero-facts">
+            <li>
+              <strong>0</strong>
+              <span data-i18n="fact_hardware">hardware extra</span>
+            </li>
+            <li>
+              <strong>100%</strong>
+              <span data-i18n="fact_privacy">procesamiento local</span>
+            </li>
+            <li>
+              <strong>&lt;5s</strong>
+              <span data-i18n="fact_alerts">alerta en Telegram</span>
+            </li>
+          </ul>
+        </div>
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="radar-frame">
+            <canvas id="radar" width="480" height="480"></canvas>
+            <div class="radar-caption">
+              <span class="live-dot"></span>
+              <span data-i18n="radar_live">Vigilando en vivo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FEATURES ===================== -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 data-i18n="feat_title">Todo lo que necesitas para vigilar tu espacio</h2>
+          <p data-i18n="feat_sub">Un teléfono con WiFi es suficiente. Viewifi hace el resto.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 12a2 2 0 1 0-.01 0M5.6 5.6l12.8 12.8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <h3 data-i18n="f1_t">Detección por WiFi</h3>
+            <p data-i18n="f1_d">Mide cómo el cuerpo de una persona altera la señal WiFi para detectar movimiento a través de paredes. Funciona en la oscuridad total.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
+            <h3 data-i18n="f2_t">Evidencia foto + audio</h3>
+            <p data-i18n="f2_d">Cada alerta llega a Telegram con una foto, un clip de audio y la forma de onda de la señal. Sabrás qué pasó, no solo que pasó algo.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 4 3 11l5 2 2 5 3-3 5 4 3-15z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+            <h3 data-i18n="f3_t">Alertas Telegram</h3>
+            <p data-i18n="f3_d">Tus propio bot, tu propio chat. Alertas en segundos, resumen diario opcional y comandos para armar o desarmar a distancia.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 3 5-8 4 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 21h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h3 data-i18n="f4_t">Actividad 3D</h3>
+            <p data-i18n="f4_d">Una superficie tridimensional muestra la intensidad de cada evento en el tiempo. Explórala con el dedo, como en la app.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 1 0-7-7c0 2 1 3 2 4v3h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 3v3M4.2 6.2l2.1 2.1M19.8 6.2l-2.1 2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h3 data-i18n="f5_t">Geofence automático</h3>
+            <p data-i18n="f5_d">Sales de casa y el sistema se arma solo. Vuelves y se desarma. Decide qué host recibe la orden: uno o todos.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 9l2 2 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 data-i18n="f6_t">Varios hosts, una cuenta</h3>
+            <p data-i18n="f6_d">Casa, oficina, local: registra tantos dispositivos host como quieras bajo el mismo usuario y míralos desde cualquier lugar.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 8v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
+            <h3 data-i18n="f7_t">Aprende tu rutina</h3>
+            <p data-i18n="f7_d">Detecta cambios en tus patrones de actividad y avisa cuando algo ocurre fuera de lo normal, incluso fuera del horario protegido.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 data-i18n="f8_t">Privacidad real</h3>
+            <p data-i18n="f8_d">El análisis ocurre en el teléfono. Nada de audio ni señal sale de tu casa: solo las alertas que tú configuraste.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW ===================== -->
+    <section id="how" class="section section-alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 data-i18n="how_title">Funciona en 3 pasos</h2>
+          <p data-i18n="how_sub">De cero a vigilando en menos de 10 minutos.</p>
+        </div>
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step-num">1</span>
+            <h3 data-i18n="h1_t">Instala el host</h3>
+            <p data-i18n="h1_d">Coloca un teléfono Android con la app en modo Host donde quieras vigilar. Conéctalo al WiFi y olvídate de él.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-num">2</span>
+            <h3 data-i18n="h2_t">Conecta Telegram</h3>
+            <p data-i18n="h2_d">Crea un bot con @BotFather, pega el token y tu chat ID. Tus alertas viajan cifradas por Telegram, desde cualquier lugar.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-num">3</span>
+            <h3 data-i18n="h3_t">Recibe evidencia</h3>
+            <p data-i18n="h3_d">Cada detección llega con foto, audio y gráfica de señal. Responde al bot para confirmar falsas alarmas y la sensibilidad se ajusta sola.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== MODES ===================== -->
+    <section id="modes" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 data-i18n="modes_title">Dos modos, una misma app</h2>
+          <p data-i18n="modes_sub">El teléfono viejo vigila. El tuyo te mantiene informado.</p>
+        </div>
+        <div class="modes-grid">
+          <article class="card mode-card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6L8 10H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <h3 data-i18n="mode_host_t">Modo Host</h3>
+            <p data-i18n="mode_host_d">Corre en silencio en el teléfono que dejas en casa: detecta, captura evidencia y alerta. Optimizado para batería y reinicio automático.</p>
+            <ul class="check-list">
+              <li data-i18n="mh_1">Detección continua por WiFi</li>
+              <li data-i18n="mh_2">Evidencia foto + audio + onda RSSI</li>
+              <li data-i18n="mh_3">Horario protegido y alarma local</li>
+              <li data-i18n="mh_4">Se rearma solo tras un apagón</li>
+            </ul>
+          </article>
+          <article class="card mode-card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 5h3M12 18.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h3 data-i18n="mode_user_t">Modo Usuario</h3>
+            <p data-i18n="mode_user_d">En tu teléfono de todos los días: ve eventos en tiempo real, el radar 3D, y controla el armado por geofence estés donde estés.</p>
+            <ul class="check-list">
+              <li data-i18n="mu_1">Panel con eventos en vivo</li>
+              <li data-i18n="mu_2">Radar y superficie 3D interactiva</li>
+              <li data-i18n="mu_3">Geofence: armar/desarmar automático</li>
+              <li data-i18n="mu_4">Varios hosts en una sola vista</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="section section-alt">
+      <div class="container narrow">
+        <div class="section-head reveal">
+          <h2 data-i18n="faq_title">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq-list reveal">
+          <details>
+            <summary data-i18n="q1">¿Necesito comprar algún dispositivo?</summary>
+            <p data-i18n="a1">No. Viewifi usa la señal WiFi que ya tienes en casa. Cualquier teléfono Android con WiFi sirve como host.</p>
+          </details>
+          <details>
+            <summary data-i18n="q2">¿Funciona en la oscuridad o a través de paredes?</summary>
+            <p data-i18n="a2">Sí. El sistema detecta cómo los cuerpo alteran las ondas de radio WiFi, así que no depende de luz ni de línea de vista.</p>
+          </details>
+          <details>
+            <summary data-i18n="q3">¿Mis datos están seguros?</summary>
+            <p data-i18n="a3">El análisis de la señal ocurre íntegramente en el teléfono host. Solo salen las alertas que tú configuraste hacia tu propio bot de Telegram; la app no usa servidores de terceros para tus datos.</p>
+          </details>
+          <details>
+            <summary data-i18n="q4">¿Puedo vigilar más de un lugar?</summary>
+            <p data-i18n="a4">Sí. Registra varios dispositivos en modo Host con la misma cuenta y elige a cuál enviar cada comando, o envíalos a todos.</p>
+          </details>
+          <details>
+            <summary data-i18n="q5">¿La app es gratuita?</summary>
+            <p data-i18n="a5">Descarga el APK gratis. La funcionalidad completa está disponible sin suscripciones; funciones premium opcionales llegarán pronto.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CTA ===================== -->
+    <section class="section cta-section">
+      <div class="container">
+        <div class="cta-card reveal">
+          <h2 data-i18n="cta_title">Empieza a vigilar hoy</h2>
+          <p data-i18n="cta_sub">Un teléfono viejo, tu WiFi y cinco minutos de configuración.</p>
+          <div class="hero-cta center">
+            <a class="btn btn-filled btn-lg" href="https://github.com/pipe9494/viewifi_web/releases/download/v1.0.0/viewifi.apk">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M5 20h14v-2H5v2zM12 2 5.5 12h4v6h5v-6h4L12 2z"/></svg>
+              <span data-i18n="hero_apk">Descargar APK</span>
+            </a>
+            <a class="btn btn-outline btn-lg" href="https://play.google.com/store/apps/details?id=com.viewifi" target="_blank" rel="noopener">
+              <span data-i18n="hero_play">Google Play</span>
+            </a>
+          </div>
+          <p class="cta-note" data-i18n="cta_note">Android 8.0+ · ~21 MB · Sin registro obligatorio</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a class="brand" href="#top">
+        <svg class="brand-mark" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+          <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
+          <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span>Viewifi</span>
+      </a>
+      <p class="footer-tag" data-i18n="footer_tag">Tu WiFi, tu guardián.</p>
+      <div class="footer-links">
+        <a href="https://github.com/pipe9494/viewifi" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/pipe9494/viewifi_web/releases" target="_blank" rel="noopener" data-i18n="footer_releases">Versiones</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
