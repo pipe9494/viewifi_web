@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Viewifi — WiFi motion detection</title>
-  <meta name="description" content="Turn your WiFi into a motion sensor. Alerts with photo, audio and 3D evidence straight to Telegram. No extra hardware." />
+  <meta name="description" content="Turn your WiFi into a motion sensor. Alerts with photo, audio and 3D evidence straight to Telegram. Android app and Linux / Raspberry Pi host. No extra hardware." />
   <link rel="canonical" href="https://pipe9494.github.io/viewifi_web/en/" />
   <link rel="alternate" hreflang="es" href="https://pipe9494.github.io/viewifi_web/" />
   <link rel="alternate" hreflang="en" href="https://pipe9494.github.io/viewifi_web/en/" />
@@ -12,7 +12,7 @@
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0A0E14" />
   <meta name="author" content="Viewifi" />
-  <meta name="keywords" content="WiFi motion detection, WiFi sensing, home security, Telegram alerts, presence sensor, Android security app" />
+  <meta name="keywords" content="WiFi motion detection, WiFi sensing, home security, Telegram alerts, presence sensor, Android security app, Raspberry Pi, Linux, DIY WiFi sensor, home automation" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -52,7 +52,7 @@
     "url": "https://pipe9494.github.io/viewifi_web/en/",
     "description": "WiFi motion detection with photo, audio and 3D evidence alerts on Telegram. Works in the dark and through walls, with no extra hardware.",
     "applicationCategory": "SecurityApplication",
-    "operatingSystem": "Android 8.0+",
+    "operatingSystem": ["Android 8.0+", "Linux"],
     "inLanguage": ["en", "es"],
     "offers": {
       "@type": "Offer",
@@ -89,6 +89,11 @@
       },
       {
         "@type": "Question",
+        "name": "Can I use a Raspberry Pi or a Linux PC as the sensor?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Viewifi Host for Linux is a downloadable executable for PC (x86_64) and Raspberry Pi (ARM64). It is configured from a web panel at the device's IP address and shares the same multi-host account as the app." }
+      },
+      {
+        "@type": "Question",
         "name": "Is the app free?",
         "acceptedAnswer": { "@type": "Answer", "text": "Download the APK for free. Full functionality is available without subscriptions." }
       }
@@ -118,6 +123,7 @@
         <a href="#features">Features</a>
         <a href="#how">How it works</a>
         <a href="#modes">Modes</a>
+        <a href="#download">Downloads</a>
         <a href="#faq">FAQ</a>
       </nav>
       <div class="nav-actions">
@@ -316,9 +322,55 @@
             <p>Yes. Register several devices in Host mode under the same account and choose which one gets each command, or send them to all.</p>
           </details>
           <details>
+            <summary>Can I use a Raspberry Pi or a Linux PC as the sensor?</summary>
+            <p>Yes. Viewifi Host for Linux is a downloadable executable for PC (x86_64) and Raspberry Pi (ARM64). No Python required: run it and configure everything from a web panel in your browser at the device's IP address. It shares the same multi-host account and Telegram alerts as the app.</p>
+          </details>
+          <details>
             <summary>Is the app free?</summary>
             <p>Download the APK for free. Full functionality is available without subscriptions; optional premium features are coming soon.</p>
           </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DOWNLOADS ===================== -->
+    <section class="section section-alt" id="download">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Downloads</h2>
+          <p>Pick your platform: an Android phone as the sensor, or an always-on Linux box.</p>
+        </div>
+        <div class="card-grid">
+          <div class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><line x1="10" y1="18.5" x2="14" y2="18.5"/></svg>
+            </div>
+            <h3>Android</h3>
+            <p>The full app: host mode, 3D radar, photo & audio alerts, multi-host and profiles.</p>
+            <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi_web/releases/latest/download/viewifi.apk">Download APK</a>
+            <a class="btn btn-outline btn-sm" href="https://play.google.com/store/apps/details?id=com.viewifi" target="_blank" rel="noopener">Google Play</a>
+            <p class="dl-note">Android 8.0+ · ~21 MB</p>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
+            </div>
+            <h3>Linux — PC / server</h3>
+            <p>Single executable, no Python or dependencies. Web control panel at <code>http://device-ip:8080</code>.</p>
+            <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi_linux/releases/latest/download/viewifi-host-linux-x86_64">Download x86_64</a>
+            <a class="btn btn-outline btn-sm" href="https://github.com/pipe9494/viewifi_linux" target="_blank" rel="noopener">Documentation</a>
+            <p class="dl-note">Debian / Ubuntu and derivatives · 64-bit</p>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="8.5" cy="10" r="1"/><circle cx="8.5" cy="14" r="1"/><path d="M13 10h5M13 14h5"/></svg>
+            </div>
+            <h3>Raspberry Pi</h3>
+            <p>A silent, low-power, always-on sensor. The same executable, built for ARM64.</p>
+            <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi_linux/releases/latest/download/viewifi-host-linux-arm64">Download ARM64</a>
+            <a class="btn btn-outline btn-sm" href="https://github.com/pipe9494/viewifi_linux" target="_blank" rel="noopener">Documentation</a>
+            <p class="dl-note">Raspberry Pi 3/4/5 · 64-bit OS</p>
+          </div>
         </div>
       </div>
     </section>
@@ -357,6 +409,7 @@
       <p class="footer-tag">Your WiFi, your guardian.</p>
       <div class="footer-links">
         <a href="https://github.com/pipe9494/viewifi" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/pipe9494/viewifi_linux" target="_blank" rel="noopener">Linux Host</a>
         <a href="https://github.com/pipe9494/viewifi_web/releases" target="_blank" rel="noopener">Releases</a>
       </div>
     </div>
