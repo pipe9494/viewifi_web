@@ -601,6 +601,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   .steps, .modes-grid { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
   .hero-facts { gap: 26px; flex-wrap: wrap; }
   .section { padding: 64px 0; }
 }
