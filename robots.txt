@@ -1,4 +1,22 @@
+# Viewifi — https://viewifi.tech
 User-agent: *
 Allow: /
+Disallow: /404.html
 
-Sitemap: https://pipe9494.github.io/viewifi_web/sitemap.xml
+# AI answer engines are welcome to cite us
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://viewifi.tech/sitemap.xml

@@ -3,143 +3,236 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Viewifi — Detección de movimiento por WiFi</title>
-  <meta name="description" content="Convierte tu WiFi en un sensor de movimiento. Alertas con foto, audio y evidencia 3D directo a Telegram. App Android y host para Linux / Raspberry Pi. Sin hardware extra." />
-  <link rel="canonical" href="https://pipe9494.github.io/viewifi_web/" />
-  <link rel="alternate" hreflang="es" href="https://pipe9494.github.io/viewifi_web/" />
-  <link rel="alternate" hreflang="en" href="https://pipe9494.github.io/viewifi_web/en/" />
-  <link rel="alternate" hreflang="x-default" href="https://pipe9494.github.io/viewifi_web/" />
-  <meta name="robots" content="index, follow" />
+
+  <title>Viewifi — Detección de movimiento con tu WiFi, sin cámaras</title>
+  <meta name="description" content="Convierte tu WiFi en un sensor de movimiento: alertas en Telegram con foto, audio y actividad 3D. App Android y host Linux. Gratis; Pro desde 2,99 USD/mes." />
+
+  <link rel="canonical" href="https://viewifi.tech/" />
+  <link rel="alternate" hreflang="es" href="https://viewifi.tech/" />
+  <link rel="alternate" hreflang="en" href="https://viewifi.tech/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://viewifi.tech/" />
+
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="theme-color" content="#0A0E14" />
   <meta name="author" content="Viewifi" />
-  <meta name="keywords" content="detección de movimiento, WiFi sensing, seguridad hogar, alertas Telegram, sensor presencia, app vigilancia Android, Raspberry Pi, Linux, sensor WiFi casero, domótica" />
+  <meta name="color-scheme" content="dark" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Viewifi" />
-  <meta property="og:url" content="https://pipe9494.github.io/viewifi_web/" />
+  <meta property="og:url" content="https://viewifi.tech/" />
   <meta property="og:title" content="Viewifi — Tu WiFi ya sabe cuando alguien entra" />
-  <meta property="og:description" content="Detección de movimiento por WiFi con alertas de foto, audio y evidencia 3D en Telegram. Sin cámaras ni hardware extra." />
-  <meta property="og:image" content="https://pipe9494.github.io/viewifi_web/assets/og-image.png" />
+  <meta property="og:description" content="Detección de movimiento por WiFi con alertas de foto, audio y actividad 3D en Telegram. Sin cámaras ni hardware extra. Gratis para un host; Pro desde 2,99 USD al mes." />
+  <meta property="og:image" content="https://viewifi.tech/assets/og-image.png" />
   <meta property="og:image:alt" content="Viewifi — radar de detección de movimiento por WiFi" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="es_ES" />
   <meta property="og:locale:alternate" content="en_US" />
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Viewifi — Detección de movimiento por WiFi" />
-  <meta name="twitter:description" content="Alertas con foto, audio y evidencia 3D en Telegram. Sin cámaras, sin hardware extra, sin suscripciones." />
-  <meta name="twitter:image" content="https://pipe9494.github.io/viewifi_web/assets/og-image.png" />
+  <meta name="twitter:title" content="Viewifi — Detección de movimiento con tu WiFi" />
+  <meta name="twitter:description" content="Alertas con foto, audio y actividad 3D en Telegram. Sin cámaras, sin hardware extra." />
+  <meta name="twitter:image" content="https://viewifi.tech/assets/og-image.png" />
+  <meta name="twitter:image:alt" content="Viewifi — radar de detección de movimiento por WiFi" />
 
-  <!-- Structured data -->
+  <!-- Icons / manifest -->
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- ===================== Structured data ===================== -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Viewifi",
-    "url": "https://pipe9494.github.io/viewifi_web/",
-    "inLanguage": ["es", "en"]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Viewifi",
-    "url": "https://pipe9494.github.io/viewifi_web/",
-    "description": "Detección de movimiento por WiFi con alertas de foto, audio y evidencia 3D en Telegram. Funciona en la oscuridad y a través de paredes, sin hardware extra.",
-    "applicationCategory": "SecurityApplication",
-    "operatingSystem": ["Android 8.0+", "Linux"],
-    "inLanguage": ["es", "en"],
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "downloadUrl": "https://github.com/pipe9494/viewifi_web/releases/latest/download/viewifi.apk"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
       {
-        "@type": "Question",
-        "name": "¿Necesito comprar algún dispositivo?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No. Viewifi usa la señal WiFi que ya tienes en casa. Cualquier teléfono Android con WiFi sirve como host." }
+        "@type": "Organization",
+        "@id": "https://viewifi.tech/#organization",
+        "name": "Viewifi",
+        "url": "https://viewifi.tech/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://viewifi.tech/assets/apple-touch-icon.png",
+          "width": 512,
+          "height": 512
+        },
+        "sameAs": [
+          "https://github.com/pipe9494/viewifi",
+          "https://github.com/pipe9494/viewifi_linux"
+        ]
       },
       {
-        "@type": "Question",
-        "name": "¿Funciona en la oscuridad o a través de paredes?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Sí. El sistema detecta cómo los cuerpos alteran las ondas de radio WiFi, así que no depende de luz ni de línea de vista." }
+        "@type": "WebSite",
+        "@id": "https://viewifi.tech/#website",
+        "name": "Viewifi",
+        "url": "https://viewifi.tech/",
+        "publisher": { "@id": "https://viewifi.tech/#organization" },
+        "inLanguage": ["es", "en"]
       },
       {
-        "@type": "Question",
-        "name": "¿Mis datos están seguros?",
-        "acceptedAnswer": { "@type": "Answer", "text": "El análisis de la señal ocurre íntegramente en el teléfono host. Solo salen las alertas que configuraste hacia tu propio bot de Telegram; ningún servidor de terceros guarda tus datos." }
+        "@type": "WebPage",
+        "@id": "https://viewifi.tech/#webpage",
+        "url": "https://viewifi.tech/",
+        "name": "Viewifi — Detección de movimiento con tu WiFi, sin cámaras",
+        "description": "Convierte el WiFi que ya tienes en un sensor de movimiento. Alertas en Telegram con foto, audio y actividad 3D. App Android y host para Linux o Raspberry Pi.",
+        "isPartOf": { "@id": "https://viewifi.tech/#website" },
+        "inLanguage": "es",
+        "primaryImageOfPage": { "@type": "ImageObject", "url": "https://viewifi.tech/assets/og-image.png" }
       },
       {
-        "@type": "Question",
-        "name": "¿Puedo vigilar más de un lugar?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Sí. Registra varios dispositivos en modo Host con la misma cuenta y elige a cuál enviar cada comando, o envíalos a todos." }
+        "@type": "SoftwareApplication",
+        "@id": "https://viewifi.tech/#app",
+        "name": "Viewifi",
+        "url": "https://viewifi.tech/",
+        "description": "Detección de movimiento usando la señal WiFi existente, con alertas en Telegram que incluyen foto, audio y una superficie 3D de actividad. Funciona en la oscuridad y a través de paredes, sin hardware adicional.",
+        "applicationCategory": "SecurityApplication",
+        "applicationSubCategory": "Home security",
+        "operatingSystem": "Android 8.0+, Linux",
+        "inLanguage": ["es", "en"],
+        "softwareVersion": "1.2",
+        "fileSize": "21MB",
+        "publisher": { "@id": "https://viewifi.tech/#organization" },
+        "downloadUrl": "https://github.com/pipe9494/viewifi_web/releases/latest/download/viewifi.apk",
+        "screenshot": "https://viewifi.tech/assets/og-image.png",
+        "featureList": [
+          "Detección de movimiento por señal WiFi",
+          "Alertas en Telegram con foto y audio",
+          "Superficie 3D de actividad",
+          "Multi-host bajo una sola cuenta",
+          "Armado y desarmado por geofence",
+          "Horario protegido y vigilancia de rutina",
+          "Host para Linux y Raspberry Pi con panel web"
+        ],
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Viewifi Gratis",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://viewifi.tech/#planes"
+          },
+          {
+            "@type": "Offer",
+            "name": "Viewifi Pro (mensual)",
+            "price": "2.99",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/PreOrder",
+            "url": "https://viewifi.tech/#planes"
+          },
+          {
+            "@type": "Offer",
+            "name": "Viewifi Pro (anual)",
+            "price": "19.99",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/PreOrder",
+            "url": "https://viewifi.tech/#planes"
+          }
+        ]
       },
       {
-        "@type": "Question",
-        "name": "¿Puedo usar una Raspberry Pi o un PC con Linux como sensor?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Sí. Viewifi Host para Linux es un ejecutable descargable para PC (x86_64) y Raspberry Pi (ARM64). Se configura desde un panel web en la IP del equipo y comparte la misma cuenta multi-host de la app." }
-      },
-      {
-        "@type": "Question",
-        "name": "¿La app es gratuita?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Descarga el APK gratis. La funcionalidad completa está disponible sin suscripciones." }
+        "@type": "FAQPage",
+        "@id": "https://viewifi.tech/#faq",
+        "inLanguage": "es",
+        "isPartOf": { "@id": "https://viewifi.tech/#webpage" },
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Necesito comprar algún dispositivo para usar Viewifi?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Viewifi usa la señal WiFi que ya tienes en casa. Cualquier teléfono Android 8.0 o superior sirve como sensor, y también puedes usar un PC con Linux o una Raspberry Pi que ya tengas encendida." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿La detección de movimiento por WiFi funciona en la oscuridad o a través de paredes?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí. El sistema mide cómo un cuerpo humano altera las ondas de radio WiFi, así que no depende de luz ni de línea de vista. Por eso detecta movimiento en la oscuridad total y al otro lado de una pared." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Viewifi es gratis?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí. La detección en tiempo real, las alertas de Telegram y la evidencia con foto son gratuitas para siempre en un host. El plan Pro, previsto a 2,99 USD al mes o 19,99 USD al año, añade hosts ilimitados, evidencia con audio, historial en la nube e informes de rutina." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué incluye el plan Pro de Viewifi?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Hosts ilimitados bajo una cuenta, evidencia completa con foto, audio y actividad 3D en cada alerta, historial de eventos ilimitado en la nube frente a 7 días en el dispositivo, resumen diario y vigilancia de rutina, horarios protegidos con varias zonas, y el panel web del host Linux sin marca y con temas." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Mis datos y mi audio salen de casa?",
+            "acceptedAnswer": { "@type": "Answer", "text": "El análisis de la señal ocurre íntegramente en el dispositivo host. La captura de foto y audio está desactivada por defecto y solo se activa si tú la enciendes. Las alertas viajan a tu propio bot de Telegram, con tu propio token." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo vigilar más de un lugar con la misma cuenta?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí. El plan gratuito cubre un host. Con Pro registras tantos dispositivos host como quieras bajo el mismo usuario y eliges a cuál enviar cada comando, o los envías a todos a la vez." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo usar una Raspberry Pi o un PC con Linux como sensor?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí. Viewifi Host para Linux es un ejecutable único sin dependencias, disponible para PC x86_64 y Raspberry Pi ARM64. Se configura desde un panel web en el puerto 8080 del equipo y comparte la misma cuenta y las mismas alertas de Telegram que la app." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué es exactamente la vista 3D de actividad?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Es una línea de tiempo tridimensional de la actividad detectada, no un mapa de tu casa. La altura de la superficie representa la intensidad de la señal en cada momento, para que veas de un vistazo cuándo hubo movimiento y con qué fuerza." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Viewifi lleva publicidad?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No, y no la llevará. Una app de seguridad vive de la confianza. Viewifi se financia con el plan Pro y con licencias para negocios, nunca con anuncios ni con la venta de datos." }
+          }
+        ]
       }
     ]
   }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230A0E14'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2300E676'/%3E%3Cpath d='M8 24a11.3 11.3 0 0 1 16 0' stroke='%2300E5FF' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M4.5 20.5a16 16 0 0 1 23 0' stroke='%231B98E0' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
 </head>
 <body>
+
+  <a class="skip-link" href="#main">Saltar al contenido</a>
 
   <!-- ===================== NAV ===================== -->
   <header class="topbar">
     <div class="container nav-inner">
-      <a class="brand" href="#top" aria-label="Viewifi">
-        <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+      <a class="brand" href="/" aria-label="Viewifi — inicio">
+        <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
           <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
           <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
           <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
         </svg>
         <span>Viewifi</span>
       </a>
-      <nav class="nav-links" aria-label="Principal">
+      <nav class="nav-links" aria-label="Navegación principal">
         <a href="#features">Funciones</a>
         <a href="#how">Cómo funciona</a>
-        <a href="#modes">Modos</a>
+        <a href="#planes">Precios</a>
         <a href="#download">Descargas</a>
+        <a href="/negocios/">Negocios</a>
         <a href="#faq">FAQ</a>
       </nav>
       <div class="nav-actions">
-        <a class="lang-toggle" href="en/" aria-label="English version">EN</a>
+        <a class="lang-toggle" href="/en/" hreflang="en" lang="en" aria-label="Switch to English">EN</a>
         <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi_web/releases/latest/download/viewifi.apk">Descargar</a>
       </div>
-      <button class="nav-burger" id="nav-burger" aria-label="Menú" aria-expanded="false">
+      <button class="nav-burger" id="nav-burger" type="button" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <main id="top">
+  <main id="main">
 
     <!-- ===================== HERO ===================== -->
-    <section class="hero">
+    <section class="hero" id="top">
       <div class="container hero-grid">
         <div class="hero-copy reveal">
           <span class="pill">
@@ -147,34 +240,26 @@
             <span>Detección de movimiento por WiFi</span>
           </span>
           <h1>Tu WiFi ya sabe<br/>cuando alguien entra.</h1>
-          <p class="hero-sub">Viewifi converte la señal WiFi de tu casa en un sensor de presencia. Recibe alertas con foto, audio y evidencia 3D en Telegram — sin cámaras, sin hardware extra, sin suscripciones.</p>
+          <p class="hero-sub">Viewifi convierte la señal WiFi de tu casa en un sensor de presencia. Recibe alertas en Telegram con foto, audio y actividad 3D — sin cámaras, sin hardware extra y sin anuncios. <strong>Gratis para un host, para siempre.</strong></p>
           <div class="hero-cta">
             <a class="btn btn-filled btn-lg" href="https://github.com/pipe9494/viewifi_web/releases/latest/download/viewifi.apk">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M5 20h14v-2H5v2zM12 2 5.5 12h4v6h5v-6h4L12 2z"/></svg>
-              <span>Descargar APK</span>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5 20h14v-2H5v2zM12 2 5.5 12h4v6h5v-6h4L12 2z"/></svg>
+              <span>Descargar APK gratis</span>
             </a>
             <a class="btn btn-outline btn-lg" href="https://play.google.com/store/apps/details?id=com.viewifi" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#00E5FF" d="M3.6 2.3 13.7 12 3.6 21.7c-.4-.3-.6-.8-.6-1.4V3.7c0-.6.2-1.1.6-1.4z"/><path fill="#00E676" d="m17.4 8.3-3.7 3.7L3.6 2.3c.3-.2.7-.3 1.1-.1l12.7 6.1z"/><path fill="#FFD600" d="m17.4 15.7-12.7 6.1c-.4.2-.8.1-1.1-.1l10.1-9.7 3.7 3.7z"/><path fill="#FF1744" d="m20.9 10.4-3.5 1.7-3.7-3.7 3.7-3.7 3.5 1.7c1.5.8 1.5 4.4 0 5.2z" transform="translate(-.5 2.5) scale(.92)"/></svg>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#00E5FF" d="M3.6 2.3 13.7 12 3.6 21.7c-.4-.3-.6-.8-.6-1.4V3.7c0-.6.2-1.1.6-1.4z"/><path fill="#00E676" d="m17.4 8.3-3.7 3.7L3.6 2.3c.3-.2.7-.3 1.1-.1l12.7 6.1z"/><path fill="#FFD600" d="m17.4 15.7-12.7 6.1c-.4.2-.8.1-1.1-.1l10.1-9.7 3.7 3.7z"/><path fill="#FF1744" d="m20.9 10.4-3.5 1.7-3.7-3.7 3.7-3.7 3.5 1.7c1.5.8 1.5 4.4 0 5.2z" transform="translate(-.5 2.5) scale(.92)"/></svg>
               <span>Google Play</span>
             </a>
             <a class="btn btn-outline btn-lg" href="#download">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
-              <span>Descargar para Linux</span>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="12" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
+              <span>Linux y Raspberry Pi</span>
             </a>
           </div>
           <ul class="hero-facts">
-            <li>
-              <strong>0</strong>
-              <span>hardware extra</span>
-            </li>
-            <li>
-              <strong>100%</strong>
-              <span>procesamiento local</span>
-            </li>
-            <li>
-              <strong>&lt;5s</strong>
-              <span>alerta en Telegram</span>
-            </li>
+            <li><strong>0</strong><span>hardware extra</span></li>
+            <li><strong>100%</strong><span>análisis local</span></li>
+            <li><strong>&lt;5&nbsp;s</strong><span>alerta en Telegram</span></li>
+            <li><strong>0</strong><span>anuncios, siempre</span></li>
           </ul>
         </div>
         <div class="hero-visual reveal" aria-hidden="true">
@@ -198,44 +283,52 @@
         </div>
         <div class="card-grid">
           <article class="card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 12a2 2 0 1 0-.01 0M5.6 5.6l12.8 12.8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 12a2 2 0 1 0-.01 0M5.6 5.6l12.8 12.8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
             <h3>Detección por WiFi</h3>
             <p>Mide cómo el cuerpo de una persona altera la señal WiFi para detectar movimiento a través de paredes. Funciona en la oscuridad total.</p>
+            <p class="plan-tag plan-tag-free">Incluido en Gratis</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
-            <h3>Evidencia foto + audio</h3>
-            <p>Cada alerta llega a Telegram con una foto, un clip de audio y la forma de onda de la señal. Sabrás qué pasó, no solo que pasó algo.</p>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
+            <h3>Evidencia con foto y audio</h3>
+            <p>Cada alerta llega a Telegram con la onda de señal y, si lo activas, una foto y un clip de audio. Sabrás qué pasó, no solo que pasó algo.</p>
+            <p class="plan-tag plan-tag-pro">Audio en Pro</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 4 3 11l5 2 2 5 3-3 5 4 3-15z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
-            <h3>Alertas Telegram</h3>
-            <p>Tus propio bot, tu propio chat. Alertas en segundos, resumen diario opcional y comandos para armar o desarmar a distancia.</p>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 4 3 11l5 2 2 5 3-3 5 4 3-15z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+            <h3>Alertas en Telegram</h3>
+            <p>Tu propio bot, tu propio chat. Alertas en segundos y comandos para armar, desarmar o pedir una foto a distancia.</p>
+            <p class="plan-tag plan-tag-free">Incluido en Gratis</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 3 5-8 4 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 21h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-            <h3>Actividad 3D</h3>
-            <p>Una superficie tridimensional muestra la intensidad de cada evento en el tiempo. Explórala con el dedo, como en la app.</p>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 3 5-8 4 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 21h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h3>Actividad en 3D</h3>
+            <p>Una superficie tridimensional muestra la intensidad de cada evento en el tiempo. Es una línea de tiempo de actividad, no un mapa de tu casa.</p>
+            <p class="plan-tag plan-tag-free">Incluido en Gratis</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 1 0-7-7c0 2 1 3 2 4v3h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 3v3M4.2 6.2l2.1 2.1M19.8 6.2l-2.1 2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 1 0-7-7c0 2 1 3 2 4v3h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 3v3M4.2 6.2l2.1 2.1M19.8 6.2l-2.1 2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
             <h3>Geofence automático</h3>
             <p>Sales de casa y el sistema se arma solo. Vuelves y se desarma. Decide qué host recibe la orden: uno o todos.</p>
+            <p class="plan-tag plan-tag-free">Incluido en Gratis</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 9l2 2 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <h3>Varios hosts, una cuenta</h3>
-            <p>Casa, oficina, local: registra tantos dispositivos host como quieras bajo el mismo usuario y míralos desde cualquier lugar.</p>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 9l2 2 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Hosts ilimitados</h3>
+            <p>Casa, oficina, local, la casa de tus padres: registra tantos sensores como quieras bajo el mismo usuario y míralos desde un solo panel.</p>
+            <p class="plan-tag plan-tag-pro">Pro</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 8v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
             <h3>Aprende tu rutina</h3>
-            <p>Detecta cambios en tus patrones de actividad y avisa cuando algo ocurre fuera de lo normal, incluso fuera del horario protegido.</p>
+            <p>Compara la actividad con tu patrón habitual y avisa cuando algo se sale de lo normal — también cuando <em>falta</em> actividad donde siempre la hay.</p>
+            <p class="plan-tag plan-tag-pro">Pro</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <h3>Privacidad real</h3>
-            <p>El análisis ocurre en el teléfono. Nada de audio ni señal sale de tu casa: solo las alertas que tú configuraste.</p>
+            <p>El análisis ocurre en el dispositivo. La cámara y el micrófono están apagados por defecto. Ni un anuncio, ni un dato vendido.</p>
+            <p class="plan-tag plan-tag-free">Siempre</p>
           </article>
         </div>
       </div>
@@ -250,19 +343,19 @@
         </div>
         <ol class="steps">
           <li class="step reveal">
-            <span class="step-num">1</span>
+            <span class="step-num" aria-hidden="true">1</span>
             <h3>Instala el host</h3>
-            <p>Coloca un teléfono Android con la app en modo Host donde quieras vigilar. Conéctalo al WiFi y olvídate de él.</p>
+            <p>Deja un teléfono Android con la app en modo Host donde quieras vigilar — o instala el host en una Raspberry Pi. Conéctalo al WiFi y olvídate de él.</p>
           </li>
           <li class="step reveal">
-            <span class="step-num">2</span>
+            <span class="step-num" aria-hidden="true">2</span>
             <h3>Conecta Telegram</h3>
-            <p>Crea un bot con @BotFather, pega el token y tu chat ID. Tus alertas viajan cifradas por Telegram, desde cualquier lugar.</p>
+            <p>Crea un bot con @BotFather, pega el token y tu chat ID. Tus alertas viajan cifradas por Telegram, desde cualquier lugar del mundo.</p>
           </li>
           <li class="step reveal">
-            <span class="step-num">3</span>
+            <span class="step-num" aria-hidden="true">3</span>
             <h3>Recibe evidencia</h3>
-            <p>Cada detección llega con foto, audio y gráfica de señal. Responde al bot para confirmar falsas alarmas y la sensibilidad se ajusta sola.</p>
+            <p>Cada detección llega con la gráfica de señal y, si lo activaste, foto y audio. Responde al bot para marcar falsas alarmas y la sensibilidad se ajusta sola.</p>
           </li>
         </ol>
       </div>
@@ -277,24 +370,24 @@
         </div>
         <div class="modes-grid">
           <article class="card mode-card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6L8 10H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6L8 10H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
             <h3>Modo Host</h3>
-            <p>Corre en silencio en el teléfono que dejas en casa: detecta, captura evidencia y alerta. Optimizado para batería y reinicio automático.</p>
+            <p>Corre en silencio en el dispositivo que dejas en casa: detecta, captura evidencia y alerta. Optimizado para batería y con rearme automático.</p>
             <ul class="check-list">
               <li>Detección continua por WiFi</li>
-              <li>Evidencia foto + audio + onda RSSI</li>
+              <li>Evidencia: onda de señal, foto y audio</li>
               <li>Horario protegido y alarma local</li>
               <li>Se rearma solo tras un apagón</li>
             </ul>
           </article>
           <article class="card mode-card reveal">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 5h3M12 18.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 5h3M12 18.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
             <h3>Modo Usuario</h3>
-            <p>En tu teléfono de todos los días: ve eventos en tiempo real, el radar 3D, y controla el armado por geofence estés donde estés.</p>
+            <p>En tu teléfono de todos los días: ve eventos en tiempo real, la superficie 3D de actividad y controla el armado por geofence estés donde estés.</p>
             <ul class="check-list">
               <li>Panel con eventos en vivo</li>
               <li>Radar y superficie 3D interactiva</li>
-              <li>Geofence: armar/desarmar automático</li>
+              <li>Geofence: armar y desarmar automático</li>
               <li>Varios hosts en una sola vista</li>
             </ul>
           </article>
@@ -302,37 +395,101 @@
       </div>
     </section>
 
-    <!-- ===================== FAQ ===================== -->
-    <section id="faq" class="section section-alt">
-      <div class="container narrow">
+    <!-- ===================== PLANES ===================== -->
+    <section id="planes" class="section section-alt">
+      <div class="container">
         <div class="section-head reveal">
-          <h2>Preguntas frecuentes</h2>
+          <h2>Planes y precios</h2>
+          <p>La seguridad básica es gratis para siempre. Pro añade escala, memoria y evidencia completa.</p>
         </div>
-        <div class="faq-list reveal">
-          <details>
-            <summary>¿Necesito comprar algún dispositivo?</summary>
-            <p>No. Viewifi usa la señal WiFi que ya tienes en casa. Cualquier teléfono Android con WiFi sirve como host.</p>
-          </details>
-          <details>
-            <summary>¿Funciona en la oscuridad o a través de paredes?</summary>
-            <p>Sí. El sistema detecta cómo los cuerpo alteran las ondas de radio WiFi, así que no depende de luz ni de línea de vista.</p>
-          </details>
-          <details>
-            <summary>¿Mis datos están seguros?</summary>
-            <p>El análisis de la señal ocurre íntegramente en el teléfono host. Solo salen las alertas que tú configuraste hacia tu propio bot de Telegram; la app no usa servidores de terceros para tus datos.</p>
-          </details>
-          <details>
-            <summary>¿Puedo vigilar más de un lugar?</summary>
-            <p>Sí. Registra varios dispositivos en modo Host con la misma cuenta y elige a cuál enviar cada comando, o envíalos a todos.</p>
-          </details>
-          <details>
-            <summary>¿Puedo usar una Raspberry Pi o un PC con Linux como sensor?</summary>
-            <p>Sí. Viewifi Host para Linux es un ejecutable descargable para PC (x86_64) y Raspberry Pi (ARM64). No requiere Python: lo ejecutas y se configura desde un panel web en el navegador usando la IP del equipo. Comparte la misma cuenta multi-host y las mismas alertas de Telegram que la app.</p>
-          </details>
-          <details>
-            <summary>¿La app es gratuita?</summary>
-            <p>Descarga el APK gratis. La funcionalidad completa está disponible sin suscripciones; funciones premium opcionales llegarán pronto.</p>
-          </details>
+
+        <div class="billing-switch reveal" role="group" aria-label="Ciclo de facturación">
+          <button type="button" class="billing-opt is-active" data-cycle="month" aria-pressed="true">Mensual</button>
+          <button type="button" class="billing-opt" data-cycle="year" aria-pressed="false">Anual <span class="save-badge">−44&nbsp;%</span></button>
+        </div>
+
+        <div class="plans-grid">
+
+          <article class="plan reveal">
+            <header class="plan-head">
+              <h3>Gratis</h3>
+              <p class="plan-desc">Para vigilar un espacio. Sin caducidad y sin tarjeta.</p>
+              <p class="plan-price"><span class="plan-amount">0&nbsp;USD</span><span class="plan-period">para siempre</span></p>
+            </header>
+            <ul class="check-list">
+              <li>1 host (teléfono, PC Linux o Raspberry Pi)</li>
+              <li>Detección de movimiento en tiempo real</li>
+              <li>Alertas de Telegram con onda de señal</li>
+              <li>Evidencia con foto</li>
+              <li>Superficie 3D de actividad en vivo</li>
+              <li>Armado por geofence</li>
+              <li>Historial de 7 días en el dispositivo</li>
+            </ul>
+            <a class="btn btn-outline btn-block" href="https://github.com/pipe9494/viewifi_web/releases/latest/download/viewifi.apk">Descargar APK</a>
+            <p class="plan-note">Android 8.0+ · ~21 MB · sin registro obligatorio</p>
+          </article>
+
+          <article class="plan plan-featured reveal">
+            <span class="plan-flag">Recomendado</span>
+            <header class="plan-head">
+              <h3>Pro</h3>
+              <p class="plan-desc">Para vigilar varios espacios y no perder ni un evento.</p>
+              <p class="plan-price">
+                <span class="plan-amount" data-price-month="2,99&nbsp;USD" data-price-year="19,99&nbsp;USD">2,99&nbsp;USD</span>
+                <span class="plan-period" data-period-month="al mes" data-period-year="al año">al mes</span>
+              </p>
+              <p class="plan-equiv" data-equiv-month="Como un café al mes" data-equiv-year="Equivale a 1,67 USD al mes">Como un café al mes</p>
+            </header>
+            <ul class="check-list">
+              <li><strong>Todo lo de Gratis</strong>, más:</li>
+              <li><strong>Hosts ilimitados</strong> bajo una cuenta</li>
+              <li>Evidencia completa: foto + audio + 3D en cada alerta</li>
+              <li>Historial de eventos ilimitado en la nube</li>
+              <li>Resumen diario y vigilancia de rutina</li>
+              <li>Horarios protegidos y zonas múltiples</li>
+              <li>Panel web del host Linux sin marca y con temas</li>
+            </ul>
+            <a class="btn btn-filled btn-block" href="#waitlist">Avísame cuando salga</a>
+            <p class="plan-note">En desarrollo · precio de lanzamiento garantizado para quien se apunte</p>
+          </article>
+
+          <article class="plan reveal">
+            <header class="plan-head">
+              <h3>Negocios</h3>
+              <p class="plan-desc">Bodegas, oficinas, locales y alojamientos turísticos.</p>
+              <p class="plan-price"><span class="plan-amount">desde 10&nbsp;USD</span><span class="plan-period">al mes por sede</span></p>
+            </header>
+            <ul class="check-list">
+              <li><strong>Todo lo de Pro</strong>, más:</li>
+              <li>Panel central multi-sede</li>
+              <li>Varios usuarios con permisos</li>
+              <li>Exportación de eventos e informes</li>
+              <li>Alertas por turno y por local</li>
+              <li>Soporte prioritario</li>
+            </ul>
+            <a class="btn btn-outline btn-block" href="/negocios/">Ver plan Negocios</a>
+            <p class="plan-note">Precio por volumen a partir de 3 sedes</p>
+          </article>
+
+        </div>
+
+        <p class="plans-foot reveal">Sin anuncios en ningún plan. La detección y las alertas básicas seguirán siendo gratuitas siempre: es la parte que nadie debería tener que pagar.</p>
+      </div>
+    </section>
+
+    <!-- ===================== WAITLIST ===================== -->
+    <section id="waitlist" class="section">
+      <div class="container narrow">
+        <div class="signup-card reveal">
+          <h2>Entra en la lista de Pro</h2>
+          <p>Viewifi Pro está en desarrollo. Déjanos tu correo y serás de los primeros en activarlo, con el precio de lanzamiento bloqueado.</p>
+          <form class="signup-form" data-vw-form data-interest="pro" novalidate>
+            <label class="sr-only" for="waitlist-email">Correo electrónico</label>
+            <input id="waitlist-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="tu@correo.com" />
+            <button class="btn btn-filled" type="submit">Avísame</button>
+            <p class="form-msg" data-form-msg role="status" aria-live="polite"></p>
+          </form>
+          <p class="form-fine">Solo para avisarte del lanzamiento. Nada de spam y puedes salirte cuando quieras.</p>
         </div>
       </div>
     </section>
@@ -342,7 +499,7 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Descargas</h2>
-          <p>Elige tu plataforma: un teléfono Android como sensor, o un equipo Linux encendido 24/7.</p>
+          <p>Elige tu sensor: un teléfono Android que ya no usas, o un equipo Linux encendido 24/7.</p>
         </div>
         <div class="card-grid">
           <div class="card reveal">
@@ -350,20 +507,20 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><line x1="10" y1="18.5" x2="14" y2="18.5"/></svg>
             </div>
             <h3>Android</h3>
-            <p>La app completa: modo host, radar 3D, alertas con foto y audio, multi-host y perfiles.</p>
+            <p>La app completa: modo host, actividad 3D, alertas con foto y audio, multi-host y perfiles.</p>
             <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi_web/releases/latest/download/viewifi.apk">Descargar APK</a>
             <a class="btn btn-outline btn-sm" href="https://play.google.com/store/apps/details?id=com.viewifi" target="_blank" rel="noopener">Google Play</a>
-            <p class="dl-note">Android 8.0+ · ~21 MB</p>
+            <p class="dl-note">Android 8.0+ · ~21 MB · gratis</p>
           </div>
           <div class="card reveal">
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
             </div>
-            <h3>Linux — PC / servidor</h3>
+            <h3>Linux — PC o servidor</h3>
             <p>Ejecutable único, sin Python ni dependencias. Panel web de control en <code>http://ip-del-equipo:8080</code>.</p>
             <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi_linux/releases/latest/download/viewifi-host-linux-x86_64">Descargar x86_64</a>
             <a class="btn btn-outline btn-sm" href="https://github.com/pipe9494/viewifi_linux" target="_blank" rel="noopener">Documentación</a>
-            <p class="dl-note">Debian / Ubuntu y derivados · 64 bits</p>
+            <p class="dl-note">Debian / Ubuntu y derivados · 64 bits · MIT</p>
           </div>
           <div class="card reveal">
             <div class="card-icon" aria-hidden="true">
@@ -373,8 +530,80 @@
             <p>Sensor silencioso y de bajo consumo encendido siempre. El mismo ejecutable, compilado para ARM64.</p>
             <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi_linux/releases/latest/download/viewifi-host-linux-arm64">Descargar ARM64</a>
             <a class="btn btn-outline btn-sm" href="https://github.com/pipe9494/viewifi_linux" target="_blank" rel="noopener">Documentación</a>
-            <p class="dl-note">Raspberry Pi 3/4/5 · OS de 64 bits</p>
+            <p class="dl-note">Raspberry Pi 3/4/5 · SO de 64 bits · gratis</p>
           </div>
+          <div class="card card-kit reveal" id="kit">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8"/><path d="M2 8h20l-2-4H4L2 8z"/><path d="M10 12h4"/></svg>
+            </div>
+            <h3>Kit Raspberry Pi <span class="tag-pro">9,99&nbsp;USD</span></h3>
+            <p>Imagen de sistema preconfigurada: la grabas en la microSD, enciendes y el panel ya está listo con tu cuenta enlazada. Sin terminal, sin configurar nada.</p>
+            <a class="btn btn-filled btn-sm" href="#kit-aviso">Quiero el kit</a>
+            <a class="btn btn-outline btn-sm" href="#faq">Cómo funciona</a>
+            <p class="dl-note">Pago único · compatible con Pi 3, 4 y 5 · en preparación</p>
+          </div>
+        </div>
+
+        <div class="signup-card signup-inline reveal" id="kit-aviso">
+          <h3>Avísame cuando salga el kit</h3>
+          <p>Te escribimos en cuanto la imagen esté lista para descargar, con descuento de lanzamiento.</p>
+          <form class="signup-form" data-vw-form data-interest="kit" novalidate>
+            <label class="sr-only" for="kit-email">Correo electrónico</label>
+            <input id="kit-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="tu@correo.com" />
+            <button class="btn btn-filled" type="submit">Apuntarme</button>
+            <p class="form-msg" data-form-msg role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="section">
+      <div class="container narrow">
+        <div class="section-head reveal">
+          <h2>Preguntas frecuentes</h2>
+        </div>
+        <div class="faq-list reveal">
+          <details>
+            <summary>¿Necesito comprar algún dispositivo para usar Viewifi?</summary>
+            <p>No. Viewifi usa la señal WiFi que ya tienes en casa. Cualquier teléfono Android 8.0 o superior sirve como sensor, y también puedes usar un PC con Linux o una Raspberry Pi que ya tengas encendida.</p>
+          </details>
+          <details>
+            <summary>¿La detección de movimiento por WiFi funciona en la oscuridad o a través de paredes?</summary>
+            <p>Sí. El sistema mide cómo un cuerpo humano altera las ondas de radio WiFi, así que no depende de luz ni de línea de vista. Por eso detecta movimiento en la oscuridad total y al otro lado de una pared.</p>
+          </details>
+          <details>
+            <summary>¿Viewifi es gratis?</summary>
+            <p>Sí. La detección en tiempo real, las alertas de Telegram y la evidencia con foto son gratuitas para siempre en un host. El plan <a href="#planes">Pro</a>, previsto a 2,99&nbsp;USD al mes o 19,99&nbsp;USD al año, añade hosts ilimitados, evidencia con audio, historial en la nube e informes de rutina.</p>
+          </details>
+          <details>
+            <summary>¿Qué incluye el plan Pro de Viewifi?</summary>
+            <p>Hosts ilimitados bajo una cuenta, evidencia completa con foto, audio y actividad 3D en cada alerta, historial de eventos ilimitado en la nube frente a 7 días en el dispositivo, resumen diario y vigilancia de rutina, horarios protegidos con varias zonas, y el panel web del host Linux sin marca y con temas.</p>
+          </details>
+          <details>
+            <summary>¿Por qué suscripción y no un pago único?</summary>
+            <p>Porque el valor es continuo y los costes también: guardar tu historial en la nube y mantener la sincronización entre hosts se paga cada mes. Preferimos una suscripción honesta de precio bajo antes que anuncios o vender datos, que es lo que hacen otras apps de seguridad «gratis». El plan anual sale un 44&nbsp;% más barato.</p>
+          </details>
+          <details>
+            <summary>¿Mis datos y mi audio salen de casa?</summary>
+            <p>El análisis de la señal ocurre íntegramente en el dispositivo host. La captura de foto y audio está desactivada por defecto y solo se activa si tú la enciendes. Las alertas viajan a tu propio bot de Telegram, con tu propio token: nosotros no las vemos.</p>
+          </details>
+          <details>
+            <summary>¿Puedo vigilar más de un lugar con la misma cuenta?</summary>
+            <p>Sí. El plan gratuito cubre un host. Con Pro registras tantos dispositivos host como quieras bajo el mismo usuario y eliges a cuál enviar cada comando, o los envías a todos a la vez. Para varias sedes con panel central, mira el <a href="/negocios/">plan Negocios</a>.</p>
+          </details>
+          <details>
+            <summary>¿Puedo usar una Raspberry Pi o un PC con Linux como sensor?</summary>
+            <p>Sí. Viewifi Host para Linux es un ejecutable único sin dependencias, disponible para PC x86_64 y Raspberry Pi ARM64. Se configura desde un panel web en el puerto 8080 del equipo y comparte la misma cuenta y las mismas alertas de Telegram que la app. Es software libre con licencia MIT y seguirá siéndolo.</p>
+          </details>
+          <details>
+            <summary>¿Qué es exactamente la vista 3D de actividad?</summary>
+            <p>Es una línea de tiempo tridimensional de la actividad detectada, no un mapa de tu casa. La altura de la superficie representa la intensidad de la señal en cada momento, para que veas de un vistazo cuándo hubo movimiento y con qué fuerza.</p>
+          </details>
+          <details>
+            <summary>¿Viewifi lleva publicidad?</summary>
+            <p>No, y no la llevará. Una app de seguridad vive de la confianza. Viewifi se financia con el plan Pro y con licencias para negocios, nunca con anuncios ni con la venta de datos.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -387,14 +616,14 @@
           <p>Un teléfono viejo, tu WiFi y cinco minutos de configuración.</p>
           <div class="hero-cta center">
             <a class="btn btn-filled btn-lg" href="https://github.com/pipe9494/viewifi_web/releases/latest/download/viewifi.apk">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M5 20h14v-2H5v2zM12 2 5.5 12h4v6h5v-6h4L12 2z"/></svg>
-              <span>Descargar APK</span>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5 20h14v-2H5v2zM12 2 5.5 12h4v6h5v-6h4L12 2z"/></svg>
+              <span>Descargar APK gratis</span>
             </a>
             <a class="btn btn-outline btn-lg" href="https://play.google.com/store/apps/details?id=com.viewifi" target="_blank" rel="noopener">
               <span>Google Play</span>
             </a>
           </div>
-          <p class="cta-note">Android 8.0+ · ~21 MB · Sin registro obligatorio</p>
+          <p class="cta-note">Android 8.0+ · ~21 MB · sin registro obligatorio · sin anuncios</p>
         </div>
       </div>
     </section>
@@ -402,23 +631,31 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <a class="brand" href="#top">
-        <svg class="brand-mark" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
-          <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
-          <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </svg>
-        <span>Viewifi</span>
-      </a>
-      <p class="footer-tag">Tu WiFi, tu guardián.</p>
-      <div class="footer-links">
+      <div class="footer-brand">
+        <a class="brand" href="/">
+          <svg class="brand-mark" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true" focusable="false">
+            <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
+            <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span>Viewifi</span>
+        </a>
+        <p class="footer-tag">Tu WiFi, tu guardián.</p>
+      </div>
+      <nav class="footer-links" aria-label="Enlaces del pie de página">
+        <a href="#planes">Precios</a>
+        <a href="/negocios/">Negocios</a>
+        <a href="#download">Descargas</a>
+        <a href="/en/" hreflang="en" lang="en">English</a>
         <a href="https://github.com/pipe9494/viewifi" target="_blank" rel="noopener">GitHub</a>
         <a href="https://github.com/pipe9494/viewifi_linux" target="_blank" rel="noopener">Host Linux</a>
-        <a href="https://github.com/pipe9494/viewifi_web/releases" target="_blank" rel="noopener">Versiones</a>
-      </div>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p>&copy; 2026 Viewifi. Sin anuncios, sin venta de datos. Android es una marca de Google LLC.</p>
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="/app.js" defer></script>
 </body>
 </html>

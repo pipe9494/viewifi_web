@@ -1,0 +1,16 @@
+{
+  "name": "Viewifi — Detección de movimiento por WiFi",
+  "short_name": "Viewifi",
+  "description": "Convierte tu WiFi en un sensor de movimiento. Alertas en Telegram con foto, audio y actividad 3D.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A0E14",
+  "theme_color": "#0A0E14",
+  "lang": "es",
+  "categories": ["utilities", "security"],
+  "icons": [
+    { "src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/assets/apple-touch-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
