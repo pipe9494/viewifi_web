@@ -247,11 +247,30 @@ chmod +x viewifi-host
 <span class="c"># 3. Start it</span>
 ./viewifi-host</code></pre>
 
-          <p>On first start the host creates its config folder, measures the WiFi signal for a few seconds to set a baseline, and brings up the web panel. You will see something like this:</p>
-<pre><code>Viewifi Host v1.0.0
-WiFi interface: wlan0  ·  SSID: MyHome  ·  RSSI: -48 dBm
-Calibrating baseline... done
-Web panel: http://192.168.1.42:8080</code></pre>
+          <p>Both executables are deliberately linked against an old <code>glibc</code>, so they run the same on Raspberry Pi OS, Debian and Ubuntu whatever version you have.</p>
+
+          <p>On first start the host creates <code>~/.viewifi/</code> with its configuration and its event database, then begins calibrating. You will see this:</p>
+<pre><code>Viewifi Linux host starting…
+  zone=Home device=Linux Host (a885bde9)
+  sensitivity=2.5 interval=250ms
+Calibrating for 30s — keep the room still…
+  Panel web: http://0.0.0.0:8080  (desde otro equipo: http://&lt;ip-de-este-equipo&gt;:8080)</code></pre>
+
+          <p><strong>Calibration takes 30 seconds and needs the room to be still.</strong> This is when the host learns what the signal looks like at rest, so walking through during that half minute leaves the baseline too high and detection weak afterwards. Step out of the room and wait.</p>
+
+          <p><code>0.0.0.0</code> means the panel is listening on every interface; it is not an address you can open. To reach it from your phone you need the machine's real IP, which <code>hostname -I</code> gives you.</p>
+
+          <h3>Optional packages</h3>
+          <p>The host runs without installing anything, but three utilities get more out of it. Raspberry Pi OS already ships the first one:</p>
+<pre><code><span class="c"># More precise signal reading (recommended)</span>
+sudo apt install iw
+
+<span class="c"># Only if you want photo evidence</span>
+sudo apt install fswebcam
+
+<span class="c"># Only if you want audio evidence</span>
+sudo apt install alsa-utils</code></pre>
+          <p>Without <code>iw</code> the host falls back to <code>/proc/net/wireless</code>, which works but reads less finely. If you see <code>WARNING: no WiFi interface found</code> at startup, install <code>iw</code> and check that the adapter is up.</p>
 
           <h3>Not sure whether your Pi is 64-bit?</h3>
           <p>Run <code>uname -m</code> on the machine. If it answers <code>aarch64</code> you need the ARM64 binary; <code>x86_64</code> means the other one. If it answers <code>armv7l</code>, your Raspberry Pi OS is 32-bit and you will need to reinstall the 64-bit version of the system.</p>
