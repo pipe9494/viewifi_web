@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Linux host documentation — Viewifi</title>
+  <meta name="description" content="Full guide to Viewifi Host for Linux and Raspberry Pi: install, web panel on port 8080, Telegram setup, 24/7 systemd service, bot commands and troubleshooting." />
+
+  <link rel="canonical" href="https://viewifi.tech/en/docs/" />
+  <link rel="alternate" hreflang="es" href="https://viewifi.tech/docs/" />
+  <link rel="alternate" hreflang="en" href="https://viewifi.tech/en/docs/" />
+  <link rel="alternate" hreflang="x-default" href="https://viewifi.tech/docs/" />
+
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="theme-color" content="#0A0E14" />
+  <meta name="author" content="Viewifi" />
+  <meta name="color-scheme" content="dark" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Viewifi" />
+  <meta property="og:url" content="https://viewifi.tech/en/docs/" />
+  <meta property="og:title" content="Linux host documentation — Viewifi" />
+  <meta property="og:description" content="Turn a Raspberry Pi or a Linux PC into a WiFi motion sensor. One executable, no dependencies, configured from a web panel." />
+  <meta property="og:image" content="https://viewifi.tech/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="es_ES" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Linux host documentation — Viewifi" />
+  <meta name="twitter:description" content="Install, web panel, Telegram and systemd for the Viewifi host on Linux and Raspberry Pi." />
+  <meta name="twitter:image" content="https://viewifi.tech/assets/og-image.png" />
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://viewifi.tech/en/" },
+          { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://viewifi.tech/en/docs/" }
+        ]
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://viewifi.tech/en/docs/#article",
+        "headline": "Viewifi Linux host documentation",
+        "description": "Complete installation and configuration guide for Viewifi Host on Linux and Raspberry Pi.",
+        "url": "https://viewifi.tech/en/docs/",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://viewifi.tech/#website" },
+        "author": { "@id": "https://viewifi.tech/#organization" },
+        "publisher": { "@id": "https://viewifi.tech/#organization" },
+        "dateModified": "2026-09-13",
+        "proficiencyLevel": "Beginner",
+        "dependencies": "64-bit Linux (x86_64 or ARM64) with a WiFi adapter joined to a network"
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://viewifi.tech/en/docs/#howto",
+        "name": "How to install Viewifi Host on Linux or Raspberry Pi",
+        "description": "Download the executable, make it executable, start it, and configure everything from the web panel on port 8080.",
+        "inLanguage": "en",
+        "totalTime": "PT10M",
+        "estimatedCost": { "@type": "MonetaryAmount", "currency": "USD", "value": "0" },
+        "supply": [
+          { "@type": "HowToSupply", "name": "A Linux PC or a Raspberry Pi 3, 4 or 5 running a 64-bit system" },
+          { "@type": "HowToSupply", "name": "An active WiFi connection on that machine" },
+          { "@type": "HowToSupply", "name": "A Telegram account" }
+        ],
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Download the executable",
+            "text": "Download the binary for your architecture: viewifi-host-linux-x86_64 for a PC or viewifi-host-linux-arm64 for a Raspberry Pi.",
+            "url": "https://viewifi.tech/en/docs/#install"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Make it executable and start it",
+            "text": "Run chmod +x on the downloaded file and launch it. No Python and no dependencies to install.",
+            "url": "https://viewifi.tech/en/docs/#install"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Open the web panel",
+            "text": "From any browser on the local network, go to http://DEVICE-IP:8080 to see the status and configure the sensor.",
+            "url": "https://viewifi.tech/en/docs/#panel"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Connect Telegram",
+            "text": "Create a bot with @BotFather, paste the token and your chat ID into the panel, and send a test alert.",
+            "url": "https://viewifi.tech/en/docs/#telegram"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 5,
+            "name": "Keep it running 24/7",
+            "text": "Install the systemd unit so the host starts with the machine and restarts after any failure.",
+            "url": "https://viewifi.tech/en/docs/#systemd"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="container nav-inner">
+      <a class="brand" href="/en/" aria-label="Viewifi — home">
+        <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+          <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
+          <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span>Viewifi</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/en/#features">Features</a>
+        <a href="/en/#pricing">Pricing</a>
+        <a href="/en/#download">Downloads</a>
+        <a href="/en/docs/" aria-current="page">Docs</a>
+        <a href="/en/business/">Business</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="lang-toggle" href="/docs/" hreflang="es" lang="es" aria-label="Ver en español">ES</a>
+        <a class="btn btn-filled btn-sm" href="#install">Install</a>
+      </div>
+      <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <nav class="breadcrumb container" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/en/">Home</a></li>
+        <li aria-current="page">Documentation</li>
+      </ol>
+    </nav>
+
+    <div class="container" style="padding-top:26px">
+      <span class="pill"><span class="pill-dot"></span><span>Viewifi Host for Linux</span></span>
+      <h1 style="margin:14px 0 16px">Documentation</h1>
+      <p class="docs-lead" style="max-width:70ch">Turn a Raspberry Pi, a server or any Linux PC into a WiFi motion sensor. It is a single dependency-free executable: it installs no Python, touches nothing in your system, and is configured entirely from a web panel in the browser.</p>
+    </div>
+
+    <div class="container docs-layout">
+
+      <!-- ===================== TOC ===================== -->
+      <nav class="docs-toc" id="docs-toc" aria-label="On this page">
+        <h2>On this page</h2>
+        <ol>
+          <li><a href="#requirements">1. Requirements</a></li>
+          <li><a href="#install">2. Installation</a></li>
+          <li><a href="#panel">3. The web panel</a></li>
+          <li><a href="#telegram">4. Connecting Telegram</a></li>
+          <li><a href="#account">5. Linking your account</a></li>
+          <li><a href="#calibration">6. Calibration and sensitivity</a></li>
+          <li><a href="#systemd">7. Running it 24/7</a></li>
+          <li><a href="#commands">8. Bot commands</a></li>
+          <li><a href="#evidence">9. Photo and audio</a></li>
+          <li><a href="#schedules">10. Schedules and routine</a></li>
+          <li><a href="#files">11. Files and paths</a></li>
+          <li><a href="#troubleshooting">12. Troubleshooting</a></li>
+          <li><a href="#uninstall">13. Uninstalling</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== BODY ===================== -->
+      <article class="docs-body">
+
+        <section id="requirements">
+          <h2>1. Requirements</h2>
+          <p>The host needs very little. If the machine is on your WiFi and stays powered, it will do.</p>
+          <ul>
+            <li><strong>A 64-bit system</strong>: Debian, Ubuntu, Raspberry Pi OS or a derivative. Other distributions work, but these are the tested ones.</li>
+            <li><strong>Architecture</strong> x86_64 (PC, laptop, mini-PC, NAS) or ARM64 (Raspberry Pi 3, 4 or 5 on a 64-bit system).</li>
+            <li><strong>A WiFi adapter joined to a network.</strong> The sensor measures the quality of that link, so the machine has to be associated with your router over WiFi, not over Ethernet.</li>
+            <li><strong>A Telegram account</strong> to receive the alerts.</li>
+            <li>Optional: a USB webcam and a microphone if you want photo and audio evidence.</li>
+          </ul>
+          <div class="note">
+            <span class="note-title">Why WiFi and not a cable?</span>
+            <p>Viewifi detects movement by measuring how a human body disturbs the radio waves between the machine and the router. If the host is on Ethernet there is no signal to measure. A cheap USB WiFi dongle is enough.</p>
+          </div>
+          <h3>Where to put it</h3>
+          <p>Place it so that anyone walking in passes <em>between</em> the machine and the router — that is where the signal changes most. A hallway, an entrance, or the line from the front door to the living room all work well. Avoid sitting it right next to the router: a signal that strong barely varies, and the sensor loses sensitivity.</p>
+        </section>
+
+        <section id="install">
+          <h2>2. Installation</h2>
+          <p>Three commands and it is running. The binary carries everything inside, so there is no <code>apt install</code>, no virtual environment, no <code>pip</code>.</p>
+
+          <div class="dl-row">
+            <div class="dl-box">
+              <h3>PC or server</h3>
+              <p>64-bit Intel or AMD.</p>
+              <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-host-linux-x86_64">Download x86_64</a>
+            </div>
+            <div class="dl-box">
+              <h3>Raspberry Pi</h3>
+              <p>Pi 3, 4 and 5 on a 64-bit system.</p>
+              <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-host-linux-arm64">Download ARM64</a>
+            </div>
+          </div>
+
+          <p>Or straight from the machine's terminal. Swap <code>x86_64</code> for <code>arm64</code> on a Raspberry Pi:</p>
+<pre><code><span class="c"># 1. Download</span>
+curl -L -o viewifi-host \
+  https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-host-linux-x86_64
+
+<span class="c"># 2. Make it executable</span>
+chmod +x viewifi-host
+
+<span class="c"># 3. Start it</span>
+./viewifi-host</code></pre>
+
+          <p>On first start the host creates its config folder, measures the WiFi signal for a few seconds to set a baseline, and brings up the web panel. You will see something like this:</p>
+<pre><code>Viewifi Host v1.0.0
+WiFi interface: wlan0  ·  SSID: MyHome  ·  RSSI: -48 dBm
+Calibrating baseline... done
+Web panel: http://192.168.1.42:8080</code></pre>
+
+          <h3>Not sure whether your Pi is 64-bit?</h3>
+          <p>Run <code>uname -m</code> on the machine. If it answers <code>aarch64</code> you need the ARM64 binary; <code>x86_64</code> means the other one. If it answers <code>armv7l</code>, your Raspberry Pi OS is 32-bit and you will need to reinstall the 64-bit version of the system.</p>
+
+          <h3>Trying it without hardware</h3>
+          <p>To see how it behaves before mounting it in place, start it with a simulated signal:</p>
+<pre><code>./viewifi-host --sim</code></pre>
+          <p>It generates fake readings with periodic events, so you can walk through the panel and the alerts without waving at your router.</p>
+        </section>
+
+        <section id="panel">
+          <h2>3. The web panel</h2>
+          <p>Everything is configured from the browser. Open <code>http://DEVICE-IP:8080</code> from any device on the same network — your phone, your laptop, whatever is at hand. On the machine itself, <code>http://localhost:8080</code>.</p>
+          <p>The panel shows:</p>
+          <ul>
+            <li><strong>A live signal chart</strong>, with the baseline and the trigger threshold drawn over it. It is the quickest way to understand why it fires, or why it does not.</li>
+            <li><strong>Status</strong>: armed or disarmed, WiFi interface, SSID, current RSSI and the time of the last detection.</li>
+            <li><strong>Buttons</strong> to arm, disarm and recalibrate.</li>
+            <li><strong>A Telegram test</strong>, which sends a sample message to confirm the bot is set up correctly.</li>
+            <li><strong>Event history</strong> recorded by this host.</li>
+            <li><strong>Full configuration</strong>: thresholds, protected schedule, evidence, daily digest and account.</li>
+          </ul>
+
+          <div class="note note-warn">
+            <span class="note-title">Put a password on the panel</span>
+            <p>By default the panel is reachable by anyone on your local network. Turn on <code>web_password</code> in the configuration and it will ask for a password on entry. Always do this if other people share the network: a shop, an office, a flatshare.</p>
+          </div>
+
+          <h3>Changing the port</h3>
+          <p>If 8080 is already taken by another service, start the host on a different one:</p>
+<pre><code>./viewifi-host --port 8099</code></pre>
+
+          <div class="note note-warn">
+            <span class="note-title">Do not expose it to the internet</span>
+            <p>The panel is meant for the local network. Do not port-forward 8080 on your router. If you need to reach it from outside, use a VPN such as WireGuard or Tailscale — and remember day-to-day use does not need it: alerts and commands travel over Telegram, which already works from anywhere in the world.</p>
+          </div>
+        </section>
+
+        <section id="telegram">
+          <h2>4. Connecting Telegram</h2>
+          <p>Alerts go to <em>your</em> bot, created by you, with your token. Neither we nor anyone else sees them pass.</p>
+
+          <h3>Step 1: create the bot</h3>
+          <ol>
+            <li>Open Telegram and search for <strong>@BotFather</strong>.</li>
+            <li>Send <code>/newbot</code> and follow the prompts: it asks for a name and a username ending in <code>bot</code>.</li>
+            <li>At the end it gives you a <strong>token</strong> shaped like this: <code>7123456789:AAE...</code>. Copy it.</li>
+          </ol>
+
+          <h3>Step 2: get your chat ID</h3>
+          <ol>
+            <li>Search for <strong>@userinfobot</strong> in Telegram and send it any message.</li>
+            <li>It replies with your <strong>Id</strong>, a number like <code>123456789</code>. That is your chat ID.</li>
+            <li>Send a first message to your own bot (a plain <code>/start</code>). Telegram does not let a bot write to someone who has never written to it.</li>
+          </ol>
+
+          <h3>Step 3: paste it into the panel</h3>
+          <p>In the Telegram section of the panel, paste the token and the chat ID, save, and press <strong>Send test</strong>. If the message arrives, you are done.</p>
+
+          <div class="note note-ok">
+            <span class="note-title">Alerting several people</span>
+            <p>Create a Telegram group, add your bot, and use the group ID (it starts with <code>-100</code>) as the chat ID. Every member gets the alerts, and anyone with permission can arm or disarm from there.</p>
+          </div>
+        </section>
+
+        <section id="account">
+          <h2>5. Linking your account</h2>
+          <p>This step is optional, but it is what makes the Linux host and the Android app one system rather than two separate things.</p>
+          <p>If you enter your Viewifi account email and password in the panel, the host:</p>
+          <ul>
+            <li>Shows up in the app's host list, alongside every other sensor you have.</li>
+            <li>Obeys the <strong>geofence</strong>: when you leave home with your phone it arms itself; when you come back it disarms.</li>
+            <li>Receives commands you send from the app to one specific host or to all of them at once.</li>
+          </ul>
+          <p>The password is stored only on that machine, in a file with <code>600</code> permissions that only your user can read.</p>
+          <div class="note">
+            <span class="note-title">It works without an account too</span>
+            <p>If you would rather not create an account, the host still detects and alerts over Telegram. What you lose is the geofence and the combined view of several sensors in the app.</p>
+          </div>
+        </section>
+
+        <section id="calibration">
+          <h2>6. Calibration and sensitivity</h2>
+          <p>Every home has a different radio fingerprint, so the host calibrates itself at startup: it listens to the signal for a few seconds <strong>with nobody moving</strong> and takes that as the baseline. Anything that deviates from it beyond the threshold counts as movement.</p>
+
+          <h3>When to recalibrate</h3>
+          <p>Press <strong>Recalibrate</strong> in the panel when you:</p>
+          <ul>
+            <li>Move the machine or the router.</li>
+            <li>Change WiFi network or band.</li>
+            <li>Rearrange large, metallic furniture or appliances in between.</li>
+          </ul>
+          <p>Always do it with the place empty, or at least with nobody crossing the watched area.</p>
+
+          <h3>Tuning the threshold</h3>
+          <p>The panel chart is your best guide: walk through the area and watch how far the line pulls away from its baseline.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Symptom</th><th>What to do</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Alerts with nobody there</td><td>Raise the threshold, or raise the number of consecutive readings needed to fire.</td></tr>
+                <tr><td>You walk past and nothing fires</td><td>Lower the threshold. If it still misses, move the host closer to the router or change its orientation.</td></tr>
+                <tr><td>The signal swings on its own constantly</td><td>Usually a neighbour on the same WiFi channel, or a microwave. Change the router's channel and recalibrate.</td></tr>
+                <tr><td>Very weak RSSI, below −75 dBm</td><td>Too far from the router: noise swamps the signal. Move the machine closer or use a WiFi dongle with an antenna.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="note note-ok">
+            <span class="note-title">Let it learn</span>
+            <p>When an alert turns out to be false, mark it as such by replying to the bot. The host lowers its sensitivity for that kind of disturbance and false alarms drop off on their own within days.</p>
+          </div>
+        </section>
+
+        <section id="systemd">
+          <h2>7. Running it 24/7</h2>
+          <p>Launching it by hand is fine for testing, but a real sensor has to start with the machine and pick itself up if something fails. That is what the systemd unit is for.</p>
+
+          <p>Copy the binary to a system path and create the service:</p>
+<pre><code><span class="c"># Install the executable</span>
+sudo cp viewifi-host /usr/local/bin/
+sudo chmod +x /usr/local/bin/viewifi-host
+
+<span class="c"># Create the service for your user</span>
+sudo tee /etc/systemd/system/viewifi-host@.service &gt; /dev/null &lt;&lt;'EOF'
+[Unit]
+Description=Viewifi Host
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=%i
+ExecStart=/usr/local/bin/viewifi-host
+Restart=always
+RestartSec=5
+MemoryMax=256M
+Nice=-5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+<span class="c"># Enable and start it (replace "pi" with your user)</span>
+sudo systemctl daemon-reload
+sudo systemctl enable --now viewifi-host@pi</code></pre>
+
+          <p>Check that it is healthy and read the logs:</p>
+<pre><code>systemctl status viewifi-host@pi
+journalctl -u viewifi-host@pi -f</code></pre>
+
+          <div class="note">
+            <span class="note-title">What each line does</span>
+            <p><code>Restart=always</code> revives it after any crash or power cut. <code>MemoryMax=256M</code> stops it eating the RAM of a small Pi. <code>Nice=-5</code> gives it a little priority so signal readings are not delayed when the machine is busy. And <code>@%i</code> makes it run as your user, so the configuration lives in your home folder rather than root's.</p>
+          </div>
+        </section>
+
+        <section id="commands">
+          <h2>8. Bot commands</h2>
+          <p>Send these to your bot from anywhere. You do not need to be on the home network.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Command</th><th>What it does</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>/status</code></td><td>Current state: armed or not, signal, SSID, uptime and last detection.</td></tr>
+                <tr><td><code>/arm</code></td><td>Arms the sensor. From then on, every detection raises an alert.</td></tr>
+                <tr><td><code>/disarm</code></td><td>Disarms. It keeps measuring and recording, but stops bothering you.</td></tr>
+                <tr><td><code>/photo</code></td><td>Requests a photo right now, if a camera is configured.</td></tr>
+                <tr><td><code>/help</code></td><td>The list of available commands.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>What each alert carries</h3>
+          <p>An alert always includes the time, the level (normal or high) and an image of the signal waveform at the moment of the event, where you can see the spike that triggered it. If you enabled evidence, it also carries the photo and the audio clip.</p>
+
+          <h3>WiFi-drop alarm</h3>
+          <p>If the host is armed and loses its WiFi connection for more than ten seconds, it sends a high-level alert. A network outage while you are watching is not a minor detail: it may be a power cut, but it may also be someone unplugging the router.</p>
+        </section>
+
+        <section id="evidence">
+          <h2>9. Photo and audio</h2>
+          <p>Image and sound capture ship <strong>switched off</strong>. You turn them on by hand, in the panel, and only if you want to.</p>
+
+          <h3>Photo</h3>
+          <p>You need a USB webcam and one of these two tools:</p>
+<pre><code>sudo apt install fswebcam     <span class="c"># lightweight, the recommended one</span>
+<span class="c"># or</span>
+sudo apt install ffmpeg       <span class="c"># if you already use it for something else</span></code></pre>
+          <p>Check the system can see the camera with <code>ls /dev/video*</code>. If <code>/dev/video0</code> shows up, you are set.</p>
+
+          <h3>Audio</h3>
+          <p>The clip is recorded with <code>arecord</code>, which comes with <code>alsa-utils</code>:</p>
+<pre><code>sudo apt install alsa-utils
+arecord -l                    <span class="c"># lists the detected microphones</span></code></pre>
+
+          <div class="note note-warn">
+            <span class="note-title">Before you switch it on</span>
+            <p>Recording image or sound in a space where other people are has legal implications that vary by country, and more so in a workplace. Check what applies to you and tell whoever needs to know. WiFi detection on its own records nobody — that is precisely its advantage.</p>
+          </div>
+        </section>
+
+        <section id="schedules">
+          <h2>10. Schedules and routine</h2>
+
+          <h3>Protected schedule</h3>
+          <p>Define the window in which the space should be empty — 11 p.m. to 7 a.m., or Monday to Friday 9 a.m. to 6 p.m. in an office. Inside that window any detection is escalated to high. Outside it, ordinary movement is logged without pinging you, so you never end up muting the bot out of fatigue.</p>
+
+          <h3>Daily digest</h3>
+          <p>At a time you choose, the bot sends a summary of the day: how many events there were, when they clustered, and whether the sensor was down at any point. It is how you find out everything is working without having to look at anything.</p>
+
+          <h3>Routine watch</h3>
+          <p>The host learns which time blocks usually have activity and warns you when the pattern breaks. What makes it interesting is that it works both ways: it warns you if there is movement where there never is, and also if there is <em>none</em> where there always was. That second half is what turns Viewifi into a discreet way of knowing that an elderly relative living alone has started their day as usual.</p>
+
+          <h3>Heartbeat</h3>
+          <p>The host periodically reports that it is still alive. If the heartbeat stops arriving, you know that sensor is off or offline — far better than finding out on the day it mattered.</p>
+        </section>
+
+        <section id="files">
+          <h2>11. Files and paths</h2>
+          <p>Everything the host creates lives in your home folder. It writes nothing outside it.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Path</th><th>Contents</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>~/.viewifi/config.json</code></td><td>The whole configuration: Telegram token, thresholds, schedules and account. Permissions <code>600</code> — only your user can read it.</td></tr>
+                <tr><td><code>~/.viewifi/events.db</code></td><td>SQLite database with this host's event history.</td></tr>
+                <tr><td><code>/usr/local/bin/viewifi-host</code></td><td>The executable, if you followed the systemd step.</td></tr>
+                <tr><td><code>/etc/systemd/system/viewifi-host@.service</code></td><td>The service unit.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Backups</h3>
+          <p>Saving <code>~/.viewifi/</code> saves everything. To move the sensor to another machine, copy that folder and start the binary there: it picks the configuration straight back up, though it is worth recalibrating because the new location's radio fingerprint will differ.</p>
+
+          <div class="note note-warn">
+            <span class="note-title">Careful what you share</span>
+            <p><code>config.json</code> holds your bot token and, if you linked it, your account password. Do not push it to any repository or paste it into a support chat without clearing those fields first.</p>
+          </div>
+
+          <h3>Disk space</h3>
+          <p>The local history is not purged automatically: it grows over time, though very slowly, because each event takes a few hundred bytes. Even with constant detections it would take years to become a problem on a Pi's card. If you want to clear it anyway, stop the service and delete <code>events.db</code>; a fresh empty one is created at the next start.</p>
+        </section>
+
+        <section id="troubleshooting">
+          <h2>12. Troubleshooting</h2>
+
+          <h3>"No WiFi interface found"</h3>
+          <p>The host looks for the interface three ways: <code>iw dev link</code>, then <code>/proc/net/wireless</code>, and finally <code>iwconfig</code>. If none returns anything, the machine is not on WiFi. Check with <code>iw dev</code> that a wireless interface exists, and with <code>iwconfig</code> that it is associated with your network. Remember: connected over Ethernet does not count.</p>
+
+          <h3>The panel will not open from another device</h3>
+          <p>Confirm the machine's IP with <code>hostname -I</code> and that you are both on the same network — a phone on the guest network cannot see the rest. If you run a firewall, open the port:</p>
+<pre><code>sudo ufw allow 8080/tcp</code></pre>
+
+          <h3>Telegram alerts never arrive</h3>
+          <ul>
+            <li>Did you send <code>/start</code> to your bot? Without that first message from you, Telegram blocks the bot.</li>
+            <li>Check the token is complete, colon included.</li>
+            <li>The chat ID is a number; for a group it starts with <code>-100</code>, and the minus sign is part of it.</li>
+            <li>Use the panel's test button: it reports exactly what the Telegram API answers.</li>
+          </ul>
+
+          <h3>Too many false alarms</h3>
+          <p>The usual causes are a threshold set too low or a neighbour saturating the channel. Raise the threshold, recalibrate with the place empty, and if it persists, change the router's WiFi channel. A fan or a curtain moved by air conditioning also produces genuine signal variation.</p>
+
+          <h3>The service restarts in a loop</h3>
+          <p>Read the logs with <code>journalctl -u viewifi-host@YOURUSER -n 50</code>. The most common cause is the service starting before the network is ready; the unit's <code>After=network-online.target</code> prevents that, so check the line is actually there.</p>
+
+          <h3>Checking that the detection engine itself works</h3>
+          <p>Start the host with <code>--sim</code>: if it detects and alerts correctly on a simulated signal, the problem is in the WiFi reading or the placement, not in the program.</p>
+        </section>
+
+        <section id="uninstall">
+          <h2>13. Uninstalling</h2>
+          <p>Leave the machine as you found it, with nothing left behind:</p>
+<pre><code><span class="c"># Stop and remove the service</span>
+sudo systemctl disable --now viewifi-host@$USER
+sudo rm /etc/systemd/system/viewifi-host@.service
+sudo systemctl daemon-reload
+
+<span class="c"># Remove the executable</span>
+sudo rm /usr/local/bin/viewifi-host
+
+<span class="c"># Remove configuration and history</span>
+rm -rf ~/.viewifi</code></pre>
+          <p>If you linked the account, open the app and delete that host from the list so it stops appearing.</p>
+        </section>
+
+        <nav class="docs-next" aria-label="Related links">
+          <a href="/en/#pricing">
+            <span>Next</span>
+            <strong>Plans and pricing →</strong>
+          </a>
+          <a href="/en/business/">
+            <span>Several sites</span>
+            <strong>Viewifi for business →</strong>
+          </a>
+        </nav>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="/en/">
+          <svg class="brand-mark" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true" focusable="false">
+            <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
+            <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span>Viewifi</span>
+        </a>
+        <p class="footer-tag">Your WiFi, your guard.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="/en/">Home</a>
+        <a href="/en/#pricing">Pricing</a>
+        <a href="/en/#download">Downloads</a>
+        <a href="/en/business/">Business</a>
+        <a href="/docs/" hreflang="es" lang="es">Español</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p>&copy; 2026 Viewifi. No ads, no data selling. Viewifi is a notification system, not a certified alarm service.</p>
+    </div>
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

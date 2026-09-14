@@ -42,4 +42,24 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://viewifi.tech/docs/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://viewifi.tech/docs/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://viewifi.tech/en/docs/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://viewifi.tech/docs/" />
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://viewifi.tech/en/docs/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://viewifi.tech/docs/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://viewifi.tech/en/docs/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://viewifi.tech/docs/" />
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

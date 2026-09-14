@@ -193,6 +193,52 @@
     });
   }
 
+  /* ==================== Docs: highlight the current section ==================== */
+
+  var toc = document.getElementById('docs-toc');
+  var docSections = document.querySelectorAll('.docs-body > section[id]');
+
+  if (toc && docSections.length) {
+    var tocLinks = {};
+    toc.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      tocLinks[a.getAttribute('href').slice(1)] = a;
+    });
+
+    var currentId = null;
+
+    var syncToc = function () {
+      var line = 110;              // reading line, just under the fixed top bar
+      var found = docSections[0].id;
+
+      for (var i = 0; i < docSections.length; i++) {
+        if (docSections[i].getBoundingClientRect().top <= line) found = docSections[i].id;
+        else break;
+      }
+
+      // At the very bottom, always light up the last section
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) {
+        found = docSections[docSections.length - 1].id;
+      }
+
+      if (found === currentId) return;
+      currentId = found;
+      Object.keys(tocLinks).forEach(function (id) {
+        tocLinks[id].classList.toggle('is-current', id === found);
+      });
+    };
+
+    var ticking = false;
+    var onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { syncToc(); ticking = false; });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    syncToc();
+  }
+
   /* ==================== Waitlist / contact forms ==================== */
 
   var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
