@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de administración · Viewifi</title>
+
+  <!-- Esta página no debe aparecer en Google ni en el sitemap. No es una medida
+       de seguridad (eso está en las políticas RLS), solo evita que se indexe. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0A0E14" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body class="admin">
+
+<!-- ======================= Acceso ======================= -->
+<section id="pantalla-login" class="login-wrap">
+  <form class="login-card" id="form-login" autocomplete="on">
+    <div class="brand-login">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M2 8.5a15 15 0 0 1 20 0" stroke="#1B98E0" stroke-width="2" stroke-linecap="round"/>
+        <path d="M5.5 12.5a10 10 0 0 1 13 0" stroke="#00E5FF" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="17.5" r="2" fill="#00E676"/>
+      </svg>
+      <span>Viewifi</span>
+    </div>
+    <h1>Panel de administración</h1>
+    <p class="login-sub">Acceso restringido. Necesitas una cuenta con rol de administrador.</p>
+
+    <label for="login-email">Correo</label>
+    <input id="login-email" type="email" required autocomplete="username" placeholder="tu@correo.com" />
+
+    <label for="login-clave">Contraseña</label>
+    <input id="login-clave" type="password" required autocomplete="current-password" minlength="8" />
+
+    <button class="btn btn-filled" type="submit" id="btn-login">Entrar</button>
+    <p class="aviso" id="login-error" hidden></p>
+    <a class="volver" href="/">← Volver a viewifi.tech</a>
+  </form>
+</section>
+
+<!-- ======================= Panel ======================= -->
+<div id="pantalla-panel" hidden>
+  <header class="admin-top">
+    <div class="admin-top-inner">
+      <span class="admin-marca">Viewifi <em>admin</em></span>
+      <nav class="admin-tabs" id="tabs">
+        <button class="tab activo" data-panel="resumen">Resumen</button>
+        <button class="tab" data-panel="planes">Precios</button>
+        <button class="tab" data-panel="usuarios">Usuarios</button>
+        <button class="tab" data-panel="anuncios">Anuncios</button>
+        <button class="tab" data-panel="ajustes">Ajustes</button>
+        <button class="tab" data-panel="registro">Registro</button>
+      </nav>
+      <div class="admin-sesion">
+        <span id="quien-soy"></span>
+        <button class="btn btn-outline btn-sm" id="btn-salir">Salir</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- ---------------- Resumen ---------------- -->
+    <section class="panel activo" id="panel-resumen">
+      <h2>Resumen</h2>
+      <div class="tarjetas" id="metricas"></div>
+      <h3>Últimos cobros</h3>
+      <div class="tabla-scroll"><table class="tabla" id="tabla-ultimos-pagos"></table></div>
+    </section>
+
+    <!-- ---------------- Precios ---------------- -->
+    <section class="panel" id="panel-planes">
+      <h2>Precios de los planes</h2>
+      <p class="nota">
+        Wompi solo cobra en pesos colombianos: <strong>el importe en COP es el que
+        se cobra de verdad</strong>. El de dólares es únicamente lo que se muestra en la
+        web en inglés. Un cambio de precio afecta a las renovaciones siguientes,
+        nunca a un periodo ya pagado.
+      </p>
+      <div id="lista-planes" class="lista-planes"></div>
+    </section>
+
+    <!-- ---------------- Usuarios ---------------- -->
+    <section class="panel" id="panel-usuarios">
+      <div class="cabecera-panel">
+        <h2>Usuarios</h2>
+        <button class="btn btn-filled btn-sm" id="btn-nuevo-usuario">Crear usuario</button>
+      </div>
+      <div class="filtros">
+        <input type="search" id="buscar-usuario" placeholder="Buscar por correo o nombre…" />
+        <select id="filtro-plan">
+          <option value="">Todos los planes</option>
+          <option value="pro">Solo Pro</option>
+          <option value="free">Solo Free</option>
+        </select>
+        <select id="filtro-estado">
+          <option value="">Todos los estados</option>
+          <option value="activos">Activos</option>
+          <option value="bloqueados">Bloqueados</option>
+        </select>
+      </div>
+      <div class="tabla-scroll"><table class="tabla" id="tabla-usuarios"></table></div>
+      <div class="paginacion" id="paginacion-usuarios"></div>
+    </section>
+
+    <!-- ---------------- Anuncios ---------------- -->
+    <section class="panel" id="panel-anuncios">
+      <div class="cabecera-panel">
+        <h2>Anuncios de la web</h2>
+        <button class="btn btn-filled btn-sm" id="btn-nuevo-anuncio">Nuevo anuncio</button>
+      </div>
+      <p class="nota">
+        Se muestra un solo anuncio a la vez, el activo de mayor prioridad.
+        Apilar banners es la forma más rápida de que dejen de leerse.
+      </p>
+      <div id="lista-anuncios" class="lista-anuncios"></div>
+    </section>
+
+    <!-- ---------------- Ajustes ---------------- -->
+    <section class="panel" id="panel-ajustes">
+      <h2>Ajustes</h2>
+
+      <div class="bloque">
+        <h3>Acceso al servicio</h3>
+        <label class="interruptor">
+          <input type="checkbox" id="sw-registro" />
+          <span><strong>Permitir registro de nuevos usuarios</strong>
+            <em>Al apagarlo, la propia base de datos rechaza cualquier alta, también
+            las que se intenten llamando a la API directamente.</em></span>
+        </label>
+        <label class="interruptor">
+          <input type="checkbox" id="sw-acceso" />
+          <span><strong>Permitir la entrada de usuarios existentes</strong>
+            <em>Los administradores nunca quedan fuera con este interruptor, para que
+            apagarlo no te deje sin panel.</em></span>
+        </label>
+
+        <label for="msg-es">Mensaje cuando está cerrado (español)</label>
+        <input type="text" id="msg-es" maxlength="200" />
+        <label for="msg-en">Mensaje cuando está cerrado (inglés)</label>
+        <input type="text" id="msg-en" maxlength="200" />
+      </div>
+
+      <div class="bloque">
+        <h3>Cobros</h3>
+        <div class="rejilla-2">
+          <div>
+            <label for="aj-reintentos">Reintentos antes de bajar a Free</label>
+            <input type="number" id="aj-reintentos" min="1" max="10" />
+          </div>
+          <div>
+            <label for="aj-dias">Días de reintento (separados por comas)</label>
+            <input type="text" id="aj-dias" placeholder="1, 3, 5" />
+          </div>
+          <div>
+            <label for="aj-conciliar">Conciliar pagos colgados tras (minutos)</label>
+            <input type="number" id="aj-conciliar" min="5" max="1440" />
+          </div>
+          <div>
+            <label for="aj-ambiente">Ambiente de Wompi</label>
+            <select id="aj-ambiente">
+              <option value="sandbox">sandbox (pruebas)</option>
+              <option value="produccion">produccion (cobros reales)</option>
+            </select>
+            <p class="pista">Debe coincidir con las llaves cargadas en las Edge Functions.
+              Cambiar esto aquí no cambia las llaves.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-filled" id="btn-guardar-ajustes">Guardar ajustes</button>
+
+      <div class="bloque" style="margin-top:26px">
+        <h3>Administradores</h3>
+        <p class="nota" style="margin-bottom:14px">
+          La lista de correos con permiso vive en el secreto
+          <code>ADMINS_PERMITIDOS</code> de las Edge Functions, no aquí: así se
+          cambia sin tocar la base de datos y sin pasar por este panel. Pero
+          PostgreSQL no puede leer ese secreto, y las políticas de seguridad sí
+          miran el rol guardado en la base de datos. Este botón pone las dos
+          cosas de acuerdo.
+        </p>
+        <button class="btn btn-outline btn-sm" id="btn-sincronizar-admins">
+          Sincronizar con ADMINS_PERMITIDOS</button>
+        <div id="resultado-admins"></div>
+      </div>
+    </section>
+
+    <!-- ---------------- Registro ---------------- -->
+    <section class="panel" id="panel-registro">
+      <h2>Registro de cambios</h2>
+      <p class="nota">Quién tocó qué y cuándo. Útil cuando un precio "cambió solo".</p>
+      <div class="tabla-scroll"><table class="tabla" id="tabla-auditoria"></table></div>
+
+      <h3>Eventos de Wompi</h3>
+      <p class="nota">
+        Una racha de firmas inválidas significa que alguien encontró la URL del
+        webhook y está probando suerte. Las rechazamos, pero conviene saberlo.
+      </p>
+      <div class="tabla-scroll"><table class="tabla" id="tabla-eventos"></table></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ======================= Diálogos ======================= -->
+<dialog id="dlg-usuario" class="dlg">
+  <form method="dialog" id="form-usuario">
+    <h3 id="dlg-usuario-titulo">Usuario</h3>
+    <div id="dlg-usuario-cuerpo"></div>
+    <div class="dlg-acciones">
+      <button class="btn btn-outline btn-sm" value="cancelar" type="submit">Cerrar</button>
+      <button class="btn btn-filled btn-sm" id="btn-guardar-usuario" type="button">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-anuncio" class="dlg">
+  <form method="dialog" id="form-anuncio">
+    <h3 id="dlg-anuncio-titulo">Anuncio</h3>
+    <div id="dlg-anuncio-cuerpo"></div>
+    <div class="dlg-acciones">
+      <button class="btn btn-outline btn-sm" value="cancelar" type="submit">Cerrar</button>
+      <button class="btn btn-filled btn-sm" id="btn-guardar-anuncio" type="button">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="avisos" class="avisos" role="status" aria-live="polite"></div>
+
+<!-- URL exacta que recomienda la documentación de Supabase. Se deja sin
+     nombre de archivo a propósito: jsDelivr resuelve el bundle correcto y
+     así no dependemos de cómo se llame el UMD en cada versión. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/admin/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+/* ============================================================
+   Panel de administración de Viewifi
+   Hereda la paleta de /styles.css: no se redefine ningún color,
+   así el panel envejece con el sitio en vez de separarse de él.
+   ============================================================ */
+
+body.admin { padding: 0; }
+
+/* El atributo hidden se aplica desde la hoja del navegador con display:none,
+   que cualquier regla de autor con display:grid o display:flex pisa por
+   especificidad. Sin este !important, la pantalla de acceso se quedaba encima
+   del panel después de entrar: el DOM decía que estaba oculta y se veía igual. */
+[hidden] { display: none !important; }
+
+/* ---------------------------- Acceso ---------------------------- */
+
+.login-wrap {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(620px 420px at 70% 20%, rgba(27, 152, 224, 0.13), transparent 65%),
+    radial-gradient(520px 380px at 20% 80%, rgba(0, 229, 255, 0.07), transparent 65%);
+}
+
+.login-card {
+  width: min(400px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.brand-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.login-card h1 { font-size: 1.35rem; margin-bottom: 2px; }
+.login-sub { color: var(--text-dim); font-size: 0.88rem; margin-bottom: 14px; }
+.login-card .btn { margin-top: 10px; width: 100%; }
+.volver { display: block; text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--text-dim); }
+.volver:hover { color: var(--accent-cyan); }
+
+/* ------------------------- Campos comunes ------------------------- */
+
+.admin label,
+.dlg label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin: 12px 0 5px;
+}
+
+.admin input[type="text"], .admin input[type="email"], .admin input[type="password"],
+.admin input[type="number"], .admin input[type="search"], .admin input[type="datetime-local"],
+.admin select, .admin textarea,
+.dlg input, .dlg select, .dlg textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font: 500 0.92rem var(--font);
+  padding: 11px 13px;
+}
+
+.admin input:focus, .admin select:focus, .admin textarea:focus,
+.dlg input:focus, .dlg select:focus, .dlg textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(27, 152, 224, 0.18);
+}
+
+.admin textarea, .dlg textarea { resize: vertical; min-height: 76px; line-height: 1.5; }
+
+.pista { font-size: 0.78rem; color: var(--text-dim); margin-top: 6px; }
+
+.aviso {
+  background: rgba(255, 90, 90, 0.1);
+  border: 1px solid rgba(255, 90, 90, 0.35);
+  color: #FF9E9E;
+  border-radius: var(--radius-sm);
+  padding: 10px 13px;
+  font-size: 0.86rem;
+  margin-top: 12px;
+}
+
+/* --------------------------- Cabecera --------------------------- */
+
+.admin-top {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(10, 14, 20, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-top-inner {
+  width: min(1240px, 100% - 32px);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+}
+
+.admin-marca { font-weight: 800; font-size: 1.02rem; white-space: nowrap; }
+.admin-marca em { color: var(--accent-cyan); font-style: normal; font-weight: 600; }
+
+.admin-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+
+.tab {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+  font: 600 0.86rem var(--font);
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.tab:hover { color: var(--text); }
+.tab.activo { color: var(--accent-cyan); border-color: var(--line); background: var(--surface); }
+
+.admin-sesion {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+/* ---------------------------- Paneles ---------------------------- */
+
+.admin-main { width: min(1240px, 100% - 32px); margin-inline: auto; padding-block: 30px 70px; }
+
+.panel { display: none; }
+.panel.activo { display: block; animation: aparece 0.2s ease; }
+
+@keyframes aparece { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+.panel h2 { font-size: 1.45rem; margin-bottom: 6px; }
+.panel h3 { margin: 28px 0 12px; font-size: 1.02rem; }
+
+.nota {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  max-width: 74ch;
+  margin-bottom: 20px;
+}
+
+.cabecera-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.bloque {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 20px;
+}
+.bloque h3 { margin-top: 0; }
+
+.rejilla-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 20px; }
+
+/* --------------------------- Métricas --------------------------- */
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.metrica {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.metrica .valor { font-size: 1.75rem; font-weight: 800; color: var(--accent-cyan); line-height: 1.1; }
+.metrica .etiqueta { font-size: 0.8rem; color: var(--text-dim); margin-top: 5px; }
+.metrica.verde .valor { color: var(--accent-green); }
+.metrica.rojo  .valor { color: #FF8A8A; }
+
+/* ---------------------------- Tablas ---------------------------- */
+
+.tabla-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.tabla { width: 100%; border-collapse: collapse; font-size: 0.87rem; min-width: 620px; }
+.tabla th, .tabla td { padding: 11px 14px; text-align: left; white-space: nowrap; }
+.tabla th {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+}
+.tabla tbody tr { border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+.tabla tbody tr:last-child { border-bottom: 0; }
+.tabla tbody tr:hover { background: rgba(255, 255, 255, 0.025); }
+.tabla td.envuelve { white-space: normal; max-width: 320px; }
+.vacio { padding: 26px; text-align: center; color: var(--text-dim); font-size: 0.88rem; }
+
+/* --------------------------- Etiquetas --------------------------- */
+
+.chip {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+}
+.chip.ok    { color: var(--accent-green); border-color: rgba(0, 230, 118, 0.4); background: rgba(0, 230, 118, 0.08); }
+.chip.mal   { color: #FF8A8A;            border-color: rgba(255, 90, 90, 0.4);  background: rgba(255, 90, 90, 0.08); }
+.chip.espera{ color: #FFC66B;            border-color: rgba(255, 180, 70, 0.4); background: rgba(255, 180, 70, 0.08); }
+.chip.info  { color: var(--accent-cyan); border-color: rgba(0, 229, 255, 0.4);  background: rgba(0, 229, 255, 0.08); }
+
+/* ---------------------------- Planes ---------------------------- */
+
+.lista-planes { display: grid; gap: 16px; }
+
+.plan-fila {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: grid;
+  grid-template-columns: 1.3fr repeat(2, minmax(130px, 0.7fr)) auto;
+  gap: 8px 18px;
+  align-items: end;
+}
+.plan-fila .plan-nombre { font-weight: 700; font-size: 1.02rem; }
+.plan-fila .plan-codigo { font-size: 0.76rem; color: var(--text-dim); font-family: ui-monospace, monospace; }
+.plan-fila label { margin-top: 0; }
+.equivale { font-size: 0.76rem; color: var(--text-dim); margin-top: 5px; }
+
+/* --------------------------- Anuncios --------------------------- */
+
+.lista-anuncios { display: grid; gap: 14px; }
+
+.anuncio-fila {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.anuncio-fila .cuerpo { flex: 1 1 260px; min-width: 0; }
+.anuncio-fila .titulo { font-weight: 700; margin-bottom: 3px; }
+.anuncio-fila .texto  { font-size: 0.85rem; color: var(--text-dim); }
+.anuncio-fila .acciones { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Vista previa dentro del diálogo, con el mismo aspecto que en la web real. */
+.previa { margin-top: 16px; }
+.previa > span { font-size: 0.78rem; color: var(--text-dim); }
+
+/* -------------------------- Interruptor -------------------------- */
+
+.interruptor {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  margin: 0;
+  cursor: pointer;
+}
+.interruptor:last-of-type { border-bottom: 0; }
+.interruptor input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--primary); flex: none; }
+.interruptor span { display: block; font-size: 0.9rem; color: var(--text); font-weight: 500; }
+.interruptor em { display: block; font-style: normal; font-size: 0.8rem; color: var(--text-dim); margin-top: 4px; font-weight: 400; }
+
+/* ---------------------------- Filtros ---------------------------- */
+
+.filtros { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0 18px; }
+.filtros input[type="search"] { flex: 1 1 260px; }
+.filtros select { flex: 0 1 180px; }
+
+.paginacion { display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 18px; font-size: 0.85rem; color: var(--text-dim); }
+
+/* --------------------------- Diálogos --------------------------- */
+
+.dlg {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  padding: 26px;
+  width: min(620px, calc(100vw - 32px));
+  max-height: 88dvh;
+  box-shadow: var(--shadow);
+}
+.dlg::backdrop { background: rgba(4, 8, 14, 0.72); backdrop-filter: blur(3px); }
+.dlg h3 { margin: 0 0 4px; font-size: 1.15rem; }
+.dlg-acciones { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
+.dlg .datos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 18px; }
+.dlg .datos.una { grid-template-columns: 1fr; }
+
+.dato { padding: 9px 0; border-bottom: 1px solid var(--line); }
+.dato dt { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+.dato dd { margin: 3px 0 0; font-size: 0.92rem; font-weight: 600; }
+
+.peligro {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 90, 90, 0.25);
+}
+.btn-peligro {
+  background: transparent;
+  border: 1px solid rgba(255, 90, 90, 0.45);
+  color: #FF8A8A;
+}
+.btn-peligro:hover { background: rgba(255, 90, 90, 0.12); }
+
+/* ---------------------------- Avisos ---------------------------- */
+
+.avisos {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  max-width: min(380px, calc(100vw - 32px));
+}
+.toast {
+  background: var(--surface-high);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 0.87rem;
+  box-shadow: var(--shadow);
+  animation: entra 0.2s ease;
+}
+.toast.ok  { border-left-color: var(--accent-green); }
+.toast.mal { border-left-color: #FF5A5A; }
+
+@keyframes entra { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: none; } }
+
+/* --------------------------- Responsive --------------------------- */
+
+@media (max-width: 820px) {
+  .plan-fila  { grid-template-columns: 1fr 1fr; }
+  .rejilla-2  { grid-template-columns: 1fr; }
+  .dlg .datos { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .admin-top-inner { gap: 10px; }
+  .admin-sesion    { margin-left: 0; width: 100%; justify-content: space-between; }
+  .admin-tabs      { width: 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+  .tab             { white-space: nowrap; }
+  .plan-fila       { grid-template-columns: 1fr; }
+  .filtros select  { flex: 1 1 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel.activo, .toast { animation: none; }
+}

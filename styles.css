@@ -1336,3 +1336,105 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 720px) {
   .steps-2 { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   Anuncio del sitio
+   Banner que publica el administrador desde /admin/. Empuja la
+   página hacia abajo en vez de flotar sobre ella: un aviso que
+   tapa el contenido se cierra sin leerse.
+   ============================================================ */
+
+.vw-anuncio {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;                      /* por encima de la barra fija (z-index 50) */
+  background: var(--surface-high);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+/* La barra superior es fixed y no sabe del banner: se desplazan las dos. */
+body.con-anuncio .topbar { top: var(--alto-anuncio, 46px); }
+body.con-anuncio { padding-top: var(--alto-anuncio, 46px); }
+
+.vw-anuncio-inner {
+  width: min(1120px, 100% - 48px);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+}
+
+.vw-anuncio p { margin: 0; flex: 1; min-width: 0; color: var(--text-dim); }
+.vw-anuncio strong { color: var(--text); font-weight: 700; }
+
+.vw-anuncio-punto {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 9px var(--accent-cyan);
+}
+
+.vw-anuncio-cta {
+  flex: none;
+  font-weight: 600;
+  font-size: 0.84rem;
+  color: var(--accent-cyan);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.vw-anuncio-cta:hover { border-bottom-color: currentColor; }
+
+.vw-anuncio-x {
+  flex: none;
+  background: none;
+  border: 0;
+  color: var(--text-dim);
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 2px 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.vw-anuncio-x:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
+
+/* Cada tipo cambia solo el color del punto y un filo lateral. Nada de fondos
+   chillones: esto convive con una web de seguridad, no compite con ella. */
+.vw-noticia .vw-anuncio-punto { background: var(--accent-cyan); box-shadow: 0 0 9px var(--accent-cyan); }
+
+.vw-aviso  { border-left: 3px solid #FFB347; }
+.vw-aviso .vw-anuncio-punto  { background: #FFB347; box-shadow: 0 0 9px #FFB347; }
+
+.vw-alerta { border-left: 3px solid #FF5A5A; background: rgba(255, 90, 90, 0.07); }
+.vw-alerta .vw-anuncio-punto { background: #FF5A5A; box-shadow: 0 0 9px #FF5A5A; }
+.vw-alerta strong { color: #FFC9C9; }
+
+.vw-mantenimiento { border-left: 3px solid var(--accent-green); }
+.vw-mantenimiento .vw-anuncio-punto { background: var(--accent-green); box-shadow: 0 0 9px var(--accent-green); }
+
+/* En móvil el banner sigue siendo fixed. Se probó a dejarlo en flujo normal
+   para que no robara alto, pero la barra superior es fixed en top:0 y quedaba
+   por encima, tapando el botón de cerrar. Con los dos desplazados por
+   --alto-anuncio, que se mide en JavaScript, cada uno ocupa su sitio. */
+@media (max-width: 720px) {
+  .vw-anuncio-inner {
+    width: min(1120px, 100% - 32px);
+    align-items: flex-start;
+    padding: 10px 0;
+    flex-wrap: wrap;
+  }
+  .vw-anuncio-punto { margin-top: 6px; }
+  .vw-anuncio p { flex: 1 1 100%; font-size: 0.84rem; }
+  .vw-anuncio-punto { order: -1; }
+  .vw-anuncio-x { position: absolute; top: 6px; right: 12px; }
+  .vw-anuncio { position: fixed; }
+  .vw-anuncio-inner { position: relative; padding-right: 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vw-anuncio-punto { box-shadow: none; }
+}

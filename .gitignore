@@ -1,3 +1,12 @@
 node_modules/
 .DS_Store
 Thumbs.db
+
+# Secretos. Este repositorio se publica con GitHub Pages: todo lo que entre
+# aquí queda accesible en internet. La llave privada de Wompi y la service_role
+# de Supabase permiten mover dinero y leer toda la base de datos.
+.env
+.env.*
+!.env.ejemplo
+*.pem
+*.key

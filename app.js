@@ -313,4 +313,123 @@
       });
     });
   });
+  /* ==================== Anuncio del sitio ====================
+     Banner que el administrador publica desde /admin/. Se pide una sola vez
+     por carga y se pinta arriba del todo, empujando la página en vez de
+     taparla: un aviso que cubre el contenido se cierra sin leerse.
+
+     La vista anuncios_visibles ya filtra por activo y por ventana de fechas
+     en el servidor, así que aquí no se puede "adelantar" un anuncio cambiando
+     el reloj del equipo. */
+
+  (function anuncio() {
+    var CLAVE = 'vwf_anuncio_cerrado';
+
+    var descartado = function (id, sello) {
+      try {
+        return window.localStorage.getItem(CLAVE) === id + '|' + sello;
+      } catch (e) { return false; }
+    };
+    var recordar = function (id, sello) {
+      try { window.localStorage.setItem(CLAVE, id + '|' + sello); } catch (e) { /* modo privado */ }
+    };
+
+    var coincideRuta = function (rutas) {
+      if (!rutas || !rutas.length) return true;
+      var aqui = location.pathname.replace(/index\.html$/, '');
+      for (var i = 0; i < rutas.length; i++) {
+        if (rutas[i] === '*') return true;
+        var r = rutas[i].replace(/index\.html$/, '');
+        if (aqui === r || aqui === r.replace(/\/$/, '')) return true;
+      }
+      return false;
+    };
+
+    fetch(SUPABASE_URL + '/rest/v1/anuncios_visibles?select=*&limit=5', {
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+    }).then(function (r) {
+      return r.ok ? r.json() : [];
+    }).then(function (lista) {
+      if (!lista || !lista.length) return;
+
+      var a = null;
+      for (var i = 0; i < lista.length; i++) {
+        if (coincideRuta(lista[i].rutas)) { a = lista[i]; break; }
+      }
+      if (!a) return;
+
+      // El sello es actualizado_en: si el administrador edita el anuncio, el
+      // sello cambia y vuelve a verse aunque el visitante lo hubiera cerrado.
+      var sello = a.actualizado_en || '';
+      if (a.descartable && descartado(a.id, sello)) return;
+
+      var titulo  = isEN ? a.titulo_en  : a.titulo_es;
+      var mensaje = isEN ? a.mensaje_en : a.mensaje_es;
+      var boton   = isEN ? a.enlace_texto_en : a.enlace_texto_es;
+
+      var caja = document.createElement('div');
+      caja.className = 'vw-anuncio vw-' + (a.tipo || 'noticia');
+      caja.setAttribute('role', a.tipo === 'alerta' ? 'alert' : 'status');
+
+      var dentro = document.createElement('div');
+      dentro.className = 'vw-anuncio-inner';
+
+      var punto = document.createElement('span');
+      punto.className = 'vw-anuncio-punto';
+      dentro.appendChild(punto);
+
+      var texto = document.createElement('p');
+      var fuerte = document.createElement('strong');
+      fuerte.textContent = titulo || '';
+      texto.appendChild(fuerte);
+      // textContent en todo: el mensaje lo escribe una persona en el panel y
+      // no tiene por qué poder inyectar HTML en todas las páginas del sitio.
+      texto.appendChild(document.createTextNode(' ' + (mensaje || '')));
+      dentro.appendChild(texto);
+
+      if (a.enlace_url && boton) {
+        var enlace = document.createElement('a');
+        enlace.className = 'vw-anuncio-cta';
+        enlace.href = a.enlace_url;
+        enlace.textContent = boton;
+        if (/^https?:/.test(a.enlace_url)) {
+          enlace.target = '_blank';
+          enlace.rel = 'noopener';
+        }
+        dentro.appendChild(enlace);
+      }
+
+      if (a.descartable) {
+        var cerrar = document.createElement('button');
+        cerrar.className = 'vw-anuncio-x';
+        cerrar.type = 'button';
+        cerrar.setAttribute('aria-label', isEN ? 'Dismiss' : 'Cerrar aviso');
+        cerrar.textContent = '\u00D7';
+        cerrar.addEventListener('click', function () {
+          caja.remove();
+          document.body.classList.remove('con-anuncio');
+          recordar(a.id, sello);
+        });
+        dentro.appendChild(cerrar);
+      }
+
+      caja.appendChild(dentro);
+      document.body.insertBefore(caja, document.body.firstChild);
+      // La barra superior es fixed: sin esta clase, el banner quedaría debajo.
+      document.body.classList.add('con-anuncio');
+
+      // El alto real depende del texto: dos líneas ocupan el doble. Se mide y
+      // se publica como variable CSS para que la barra y el cuerpo se
+      // desplacen exactamente lo que hace falta, ni un píxel de más.
+      var medir = function () {
+        document.documentElement.style.setProperty('--alto-anuncio', caja.offsetHeight + 'px');
+      };
+      medir();
+      if (window.ResizeObserver) new ResizeObserver(medir).observe(caja);
+      else window.addEventListener('resize', medir);
+    }).catch(function () {
+      // Si el anuncio no carga, la web sigue funcionando igual. No es crítico.
+    });
+  })();
+
 })();
