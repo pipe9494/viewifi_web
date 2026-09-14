@@ -213,7 +213,14 @@
 
         <section id="instalacion">
           <h2>2. Instalación</h2>
-          <p>Tres comandos y está funcionando. El binario ya trae todo dentro, así que no hay <code>apt install</code>, ni entornos virtuales, ni <code>pip</code>.</p>
+          <div class="note note-ok" id="kit">
+            <span class="note-title">Atajo: la imagen ya preparada (recomendado en Raspberry Pi)</span>
+            <p>Si vas a montar una Raspberry Pi, sáltate todo lo de abajo. Hay una imagen que lleva el sistema, el host y un asistente de configuración dentro: la grabas en la microSD y listo.</p>
+            <p style="margin:16px 0"><a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-kit-1.0.0-arm64.img.xz">Descargar la imagen (~500&nbsp;MB)</a></p>
+            <p>Grábala con <strong>Raspberry Pi Imager</strong> — <em>Elegir SO → Usar personalizado</em> — y cuando te pregunte si quieres aplicar ajustes personalizados, di que <strong>no</strong>: la imagen ya trae los suyos y los del Imager los pisarían. Enciende la Pi, espera dos minutos, conecta el móvil a la red <code>Viewifi-Setup</code> (contraseña <code>configurar</code>) y abre <code>http://10.42.0.1</code>. El resto se hace desde el navegador, sin tocar una terminal.</p>
+          </div>
+
+          <p>Si prefieres instalarlo a mano, o vas a usar un PC en vez de una Pi, sigue aquí. Son tres comandos: el binario ya trae todo dentro, así que no hay <code>apt install</code>, ni entornos virtuales, ni <code>pip</code>.</p>
 
           <div class="dl-row">
             <div class="dl-box">

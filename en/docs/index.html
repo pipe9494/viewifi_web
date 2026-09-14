@@ -213,7 +213,14 @@
 
         <section id="install">
           <h2>2. Installation</h2>
-          <p>Three commands and it is running. The binary carries everything inside, so there is no <code>apt install</code>, no virtual environment, no <code>pip</code>.</p>
+          <div class="note note-ok" id="kit">
+            <span class="note-title">Shortcut: the ready-made image (recommended on Raspberry Pi)</span>
+            <p>If you are setting up a Raspberry Pi, skip everything below. There is an image with the system, the host and a setup wizard already inside: flash it to the microSD and you are done.</p>
+            <p style="margin:16px 0"><a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-kit-1.0.0-arm64.img.xz">Download the image (~500&nbsp;MB)</a></p>
+            <p>Flash it with <strong>Raspberry Pi Imager</strong> — <em>Choose OS → Use custom</em> — and when it asks whether to apply customisation settings, say <strong>no</strong>: the image carries its own and the Imager's would overwrite them. Power up the Pi, wait two minutes, join <code>Viewifi-Setup</code> from your phone (password <code>configurar</code>) and open <code>http://10.42.0.1</code>. Everything else happens in the browser, with no terminal.</p>
+          </div>
+
+          <p>If you would rather install it by hand, or you are using a PC instead of a Pi, carry on here. Three commands: the binary carries everything inside, so there is no <code>apt install</code>, no virtual environment, no <code>pip</code>.</p>
 
           <div class="dl-row">
             <div class="dl-box">
