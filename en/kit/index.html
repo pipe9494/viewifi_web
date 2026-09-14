@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Viewifi Kit: ready-to-flash Raspberry Pi image</title>
+  <meta name="description" content="Free image that turns a Raspberry Pi into a WiFi motion sensor. Flash it to the microSD, power up and set it from your phone. No terminal needed." />
+
+  <link rel="canonical" href="https://viewifi.tech/en/kit/" />
+  <link rel="alternate" hreflang="es" href="https://viewifi.tech/kit/" />
+  <link rel="alternate" hreflang="en" href="https://viewifi.tech/en/kit/" />
+  <link rel="alternate" hreflang="x-default" href="https://viewifi.tech/kit/" />
+
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="theme-color" content="#0A0E14" />
+  <meta name="author" content="Viewifi" />
+  <meta name="color-scheme" content="dark" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Viewifi" />
+  <meta property="og:url" content="https://viewifi.tech/en/kit/" />
+  <meta property="og:title" content="Viewifi Kit — ready-to-flash Raspberry Pi image" />
+  <meta property="og:description" content="Turn a Raspberry Pi into a WiFi motion sensor. Flash, power up, set it from your phone. Free and terminal-free." />
+  <meta property="og:image" content="https://viewifi.tech/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="es_ES" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Viewifi Kit — ready-to-flash Raspberry Pi image" />
+  <meta name="twitter:description" content="A WiFi motion sensor on a Raspberry Pi. Free, no cameras, no terminal." />
+  <meta name="twitter:image" content="https://viewifi.tech/assets/og-image.png" />
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://viewifi.tech/en/" },
+          { "@type": "ListItem", "position": 2, "name": "Raspberry Pi kit", "item": "https://viewifi.tech/en/kit/" }
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://viewifi.tech/en/kit/#webpage",
+        "url": "https://viewifi.tech/en/kit/",
+        "name": "Viewifi Kit: ready-to-flash Raspberry Pi image",
+        "description": "Free image that turns a Raspberry Pi into a WiFi motion sensor. Flash it to the microSD, power up and set it from your phone.",
+        "isPartOf": { "@id": "https://viewifi.tech/#website" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://viewifi.tech/en/kit/#kit",
+        "name": "Viewifi Kit for Raspberry Pi",
+        "alternateName": "Preconfigured Viewifi image for Raspberry Pi",
+        "url": "https://viewifi.tech/en/kit/",
+        "description": "A 64-bit Raspberry Pi OS image with the Viewifi WiFi motion sensor already installed and a setup wizard you open from your phone. No terminal required.",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Raspberry Pi OS 64-bit; Raspberry Pi 3, 4 and 5",
+        "softwareVersion": "1.0.0",
+        "fileSize": "500 MB",
+        "inLanguage": ["en", "es"],
+        "isAccessibleForFree": true,
+        "publisher": { "@id": "https://viewifi.tech/#organization" },
+        "downloadUrl": "https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-kit-1.0.0-arm64.img.xz",
+        "installUrl": "https://viewifi.tech/en/kit/",
+        "releaseNotes": "https://github.com/pipe9494/viewifi-releases/releases/tag/v1.0.0",
+        "softwareHelp": { "@type": "WebPage", "url": "https://viewifi.tech/en/docs/" },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://viewifi.tech/en/kit/"
+        }
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://viewifi.tech/en/kit/#howto",
+        "name": "How to turn a Raspberry Pi into a WiFi motion sensor with the Viewifi kit",
+        "description": "Flash the image to a microSD, power up the Raspberry Pi, join the Viewifi-Setup network from your phone and configure everything in the browser.",
+        "inLanguage": "en",
+        "totalTime": "PT15M",
+        "estimatedCost": { "@type": "MonetaryAmount", "currency": "USD", "value": "0" },
+        "supply": [
+          { "@type": "HowToSupply", "name": "A Raspberry Pi 3, 4 or 5" },
+          { "@type": "HowToSupply", "name": "A microSD card of 8 GB or more" },
+          { "@type": "HowToSupply", "name": "The Pi's power supply" },
+          { "@type": "HowToSupply", "name": "A phone or computer with WiFi" },
+          { "@type": "HowToSupply", "name": "A Telegram account" }
+        ],
+        "tool": [
+          { "@type": "HowToTool", "name": "Raspberry Pi Imager or balenaEtcher" }
+        ],
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Flash the image to the microSD",
+            "text": "Download the .img.xz file and flash it with Raspberry Pi Imager: Choose OS, then Use custom. When it asks whether to apply customisation settings, say no.",
+            "url": "https://viewifi.tech/en/kit/#flash"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Power up the Raspberry Pi",
+            "text": "Insert the microSD, plug in the power and wait about two minutes. The first boot takes longer because the system expands to fill the card.",
+            "url": "https://viewifi.tech/en/kit/#power"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Join the Viewifi-Setup network",
+            "text": "On your phone, open the WiFi settings and join Viewifi-Setup with the password configurar. Your phone will warn there is no internet: that is expected.",
+            "url": "https://viewifi.tech/en/kit/#join"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Configure it in the browser",
+            "text": "Open http://10.42.0.1 and fill in the form: your home WiFi, a password for the panel and, if you want, your Viewifi account and your Telegram bot. On save, the Pi joins your network and reboots.",
+            "url": "https://viewifi.tech/en/kit/#configure"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 5,
+            "name": "Open the panel",
+            "text": "Put your phone back on your usual WiFi and go to http://viewifi.local:8080 to see the live signal, arm the sensor and tune the sensitivity.",
+            "url": "https://viewifi.tech/en/kit/#panel"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://viewifi.tech/en/kit/#faq",
+        "inLanguage": "en",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between the full image and downloading just the program?",
+            "acceptedAnswer": { "@type": "Answer", "text": "The full image carries a whole operating system and wipes the microSD: it is for dedicating a Raspberry Pi to the sensor, and you need no terminal. The standalone program is about 15 MB that you install on top of the system you already run: use it if your Pi already does other things, such as Pi-hole or Home Assistant, and it does require a terminal." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the image erase what is on my Raspberry Pi?",
+            "acceptedAnswer": { "@type": "Answer", "text": "It erases the microSD card you flash, not the Raspberry Pi itself. If you want to keep what you already have, use a different microSD: swapping them takes a second and you can go back to the old one whenever you like." }
+          },
+          {
+            "@type": "Question",
+            "name": "What microSD card do I need?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Any card of 8 GB or more. The system takes about 3 GB once flashed and the rest stays free for the event history, which grows very slowly. A class 10 card is more than enough." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work on a Raspberry Pi Zero 2 W?",
+            "acceptedAnswer": { "@type": "Answer", "text": "In theory yes, because its processor is ARM64 just like the Pi 3, but it is untested. The boards we have verified are the Pi 3, 4 and 5. The original Pi Zero and the Pi 1 and 2 will not work: their processors are not 64-bit." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I check the download arrived intact?",
+            "acceptedAnswer": { "@type": "Answer", "text": "The file's sha256 is 34d809c84aa392c643bb1bcc8dbdd49f27a67bef7f1c585403f1c55957f7f489. On Windows run certutil -hashfile viewifi-kit-1.0.0-arm64.img.xz SHA256, and on Linux or macOS sha256sum or shasum -a 256. If it matches, the file is intact." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the default password on the image?",
+            "acceptedAnswer": { "@type": "Answer", "text": "There is none. The image ships with a random password that is discarded while it is being built, so nobody can get in until you choose your own in the wizard. That password covers both the panel and the system user. Remote access over SSH is disabled." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I start over if I get the setup wrong?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Power off the Pi, take out the microSD, put it in your computer and create an empty file named viewifi-reset.txt on the boot partition. On the next boot the Pi forgets its configuration and shows the Viewifi-Setup network again." }
+          },
+          {
+            "@type": "Question",
+            "name": "The Viewifi-Setup network does not appear",
+            "acceptedAnswer": { "@type": "Answer", "text": "Give it three minutes from power-on. If it still does not show, unplug the power and plug it back in. That network only appears while the Pi is unconfigured: if you already set it up, it will not come back until you do the factory reset." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="container nav-inner">
+      <a class="brand" href="/en/" aria-label="Viewifi — home">
+        <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+          <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
+          <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span>Viewifi</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/en/#features">Features</a>
+        <a href="/en/#pricing">Pricing</a>
+        <a href="/en/kit/" aria-current="page">Raspberry Pi kit</a>
+        <a href="/en/docs/">Docs</a>
+        <a href="/en/business/">Business</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="lang-toggle" href="/kit/" hreflang="es" lang="es" aria-label="Ver en español">ES</a>
+        <a class="btn btn-filled btn-sm" href="#download">Download</a>
+      </div>
+      <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <nav class="breadcrumb container" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/en/">Home</a></li>
+        <li aria-current="page">Raspberry Pi kit</li>
+      </ol>
+    </nav>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hero-compact" id="download">
+      <div class="container">
+        <div class="hero-copy narrow-copy reveal">
+          <span class="pill"><span class="pill-dot"></span><span>Viewifi Kit · version 1.0.0</span></span>
+          <h1>A Raspberry Pi watching your home in 15 minutes.</h1>
+          <p class="hero-sub">Flash this image to a microSD, power up the Pi and configure it from your phone. It detects movement using the WiFi signal you already have — no cameras, nothing to wire, and not a single command in a terminal.</p>
+          <div class="hero-cta">
+            <a class="btn btn-filled btn-lg" href="https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-kit-1.0.0-arm64.img.xz">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5 20h14v-2H5v2zM12 2 5.5 12h4v6h5v-6h4L12 2z"/></svg>
+              <span>Download the image</span>
+            </a>
+            <a class="btn btn-outline btn-lg" href="#steps">See the steps</a>
+          </div>
+          <ul class="hero-facts">
+            <li><strong>Free</strong><span>no sign-up</span></li>
+            <li><strong>~500&nbsp;MB</strong><span>Pi 3, 4 and 5</span></li>
+            <li><strong>0</strong><span>terminal commands</span></li>
+          </ul>
+          <p class="dl-note" style="margin-top:22px">File: <code>viewifi-kit-1.0.0-arm64.img.xz</code> · <a href="https://github.com/pipe9494/viewifi-releases/releases/tag/v1.0.0" target="_blank" rel="noopener">release notes</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT IT IS ===================== -->
+    <section class="section section-alt">
+      <div class="container narrow">
+        <div class="docs-body">
+          <h2 style="margin-top:0">What it actually is</h2>
+          <p class="docs-lead">It is 64-bit Raspberry Pi OS with the Viewifi sensor already installed and a setup wizard that opens by itself the first time. Nothing else: no desktop, no filler software, no telemetry.</p>
+          <p>Viewifi detects movement by measuring how a human body disturbs the radio waves between the Raspberry Pi and your router. That is why it works <strong>in total darkness and through walls</strong>, and why no camera is recording: what gets measured is the signal, not the picture.</p>
+
+          <div class="note note-warn">
+            <span class="note-title">This image, or just the program?</span>
+            <p>If a whole Raspberry Pi is going to be the sensor, use <strong>this image</strong>: it is the short path and never touches a terminal. If your Pi <em>already</em> does other things — Pi-hole, Home Assistant, a NAS — do not flash it: download <a href="/en/docs/#install">the executable only</a>, which installs on top without breaking anything.</p>
+          </div>
+
+          <h3>What you need</h3>
+          <ul>
+            <li><strong>A Raspberry Pi 3, 4 or 5.</strong> It has to be 64-bit; the Pi 1, 2 and original Zero will not do.</li>
+            <li><strong>A microSD of 8 GB or more.</strong> It gets wiped when you flash.</li>
+            <li><strong>The Pi's power supply.</strong></li>
+            <li><strong>A phone</strong> for the setup.</li>
+            <li><strong>A Telegram account</strong>, free, where the alerts will land.</li>
+          </ul>
+          <p>No monitor, no keyboard, no network cable and no camera required.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== STEPS ===================== -->
+    <section class="section" id="steps">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>The four steps</h2>
+          <p>From download to first alerts. About 15 minutes, most of it waiting.</p>
+        </div>
+
+        <ol class="steps steps-2">
+          <li class="step reveal" id="flash">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Flash the image</h3>
+            <p>Open <strong>Raspberry Pi Imager</strong>, click <em>Choose OS</em> and scroll down to <em>Use custom</em>. Pick the downloaded <code>.img.xz</code> — no need to decompress it. Choose your microSD and write.</p>
+            <p><strong>Important:</strong> when the Imager asks whether to apply customisation settings, say <strong>no</strong>. The image carries its own and the Imager's would overwrite them.</p>
+          </li>
+          <li class="step reveal" id="power">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Power up the Pi</h3>
+            <p>Insert the microSD, plug in the power and wait about two minutes. The green LED blinks while it boots. The first start takes longer because the system expands to fill the card.</p>
+            <p>You do not need to connect anything else: no monitor, no keyboard, no network cable.</p>
+          </li>
+          <li class="step reveal" id="join">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Join Viewifi-Setup</h3>
+            <p>On your phone, open the WiFi settings. A new network appears:</p>
+            <div class="table-wrap">
+              <table>
+                <tbody>
+                  <tr><th>Network</th><td><code>Viewifi-Setup</code></td></tr>
+                  <tr><th>Password</th><td><code>configurar</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Your phone will warn that this network has no internet. That is expected — tell it to stay connected.</p>
+          </li>
+          <li class="step reveal" id="configure">
+            <span class="step-num" aria-hidden="true">4</span>
+            <h3>Configure it in the browser</h3>
+            <p>Open <code>http://10.42.0.1</code> and fill in the form: your home WiFi, a password for the panel and, if you want, your Viewifi account and your Telegram bot.</p>
+            <p>On save, the Pi joins your network and reboots already configured. Put your phone back on your usual WiFi.</p>
+          </li>
+        </ol>
+
+        <div class="container narrow" style="padding:0;margin-top:36px">
+          <div class="note note-ok" id="panel">
+            <span class="note-title">And that is it: open the panel</span>
+            <p>Go to <code>http://viewifi.local:8080</code> from any device on your network. There you have the live signal chart, the arm and disarm button, the event history and the whole configuration. If <code>viewifi.local</code> does not resolve on your network, look in your router for a device named <code>viewifi</code> and open its IP with <code>:8080</code> at the end.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PLACEMENT ===================== -->
+    <section class="section section-alt">
+      <div class="container narrow">
+        <div class="docs-body">
+          <h2 style="margin-top:0">Where to put it</h2>
+          <p>This matters more than any software setting. Place the Raspberry Pi so that anyone walking in passes <strong>between the Pi and the router</strong>: that is where the signal changes most. A hallway, an entrance, or the line from the front door to the living room all work well.</p>
+          <p>Avoid sitting it right next to the router. A signal that strong barely varies and the sensor loses sensitivity. Avoid the opposite extreme too: below −75 dBm the noise swamps the signal.</p>
+          <p>After moving it, press <strong>Recalibrate</strong> in the panel with the place empty. The sensor measures its baseline again and adjusts to the new position.</p>
+
+          <div class="note">
+            <span class="note-title">One detail that saves frustration</span>
+            <p>The Pi has to be on your WiFi, not on a cable. What it measures is the quality of that wireless link: over Ethernet there is nothing to measure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT IS INSIDE ===================== -->
+    <section class="section">
+      <div class="container narrow">
+        <div class="docs-body">
+          <h2 style="margin-top:0">What is inside</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Component</th><th>What for</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Raspberry Pi OS Lite 64-bit</td><td>The base system, official and unmodified beyond what we add.</td></tr>
+                <tr><td>Viewifi Host</td><td>The sensor and the web panel on port 8080. Python code, no external dependencies.</td></tr>
+                <tr><td>First-boot wizard</td><td>The <code>Viewifi-Setup</code> access point and the configuration form.</td></tr>
+                <tr><td>Three systemd services</td><td>They start on their own, come back after a power cut and recover from any failure.</td></tr>
+                <tr><td><code>README.txt</code></td><td>The quick guide, visible when you open the microSD on any computer.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Security</h3>
+          <ul>
+            <li><strong>There is no factory password.</strong> The image ships with a random one that is discarded while it is being built. The first real password is the one you choose in the wizard.</li>
+            <li><strong>SSH is disabled.</strong> If you want it, create an empty file named <code>ssh</code> on the boot partition.</li>
+            <li><strong>The WiFi password wipes itself</strong> from the configuration file as soon as the Pi connects. That partition is readable from any computer, so it is no place for a credential.</li>
+            <li><strong>The sensor runs unprivileged</strong>, with write access limited to its own folder.</li>
+            <li><strong>Camera and microphone are off</strong> and only start if you switch them on in the panel.</li>
+          </ul>
+
+          <div class="note">
+            <span class="note-title">Checking the download arrived intact</span>
+            <p>The file's <code>sha256</code> is <code>34d809c84aa392c643bb1bcc8dbdd49f27a67bef7f1c585403f1c55957f7f489</code>. On Windows: <code>certutil -hashfile viewifi-kit-1.0.0-arm64.img.xz SHA256</code>. On Linux or macOS: <code>sha256sum</code> or <code>shasum -a 256</code>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="section section-alt" id="faq">
+      <div class="container narrow">
+        <div class="section-head reveal">
+          <h2>Frequently asked questions</h2>
+        </div>
+        <div class="faq-list reveal">
+          <details>
+            <summary>What is the difference between the full image and downloading just the program?</summary>
+            <p>The full image carries a whole operating system and wipes the microSD: it is for dedicating a Raspberry Pi to the sensor, and you need no terminal. The standalone program is about 15 MB that you install on top of the system you already run: use it if your Pi already does other things, such as Pi-hole or Home Assistant, and it does require a terminal.</p>
+          </details>
+          <details>
+            <summary>Does the image erase what is on my Raspberry Pi?</summary>
+            <p>It erases the microSD card you flash, not the Raspberry Pi itself. If you want to keep what you already have, use a different microSD: swapping them takes a second and you can go back to the old one whenever you like.</p>
+          </details>
+          <details>
+            <summary>What microSD card do I need?</summary>
+            <p>Any card of 8 GB or more. The system takes about 3 GB once flashed and the rest stays free for the event history, which grows very slowly. A class 10 card is more than enough.</p>
+          </details>
+          <details>
+            <summary>Does it work on a Raspberry Pi Zero 2 W?</summary>
+            <p>In theory yes, because its processor is ARM64 just like the Pi 3, but it is untested. The boards we have verified are the Pi 3, 4 and 5. The original Pi Zero and the Pi 1 and 2 will not work: their processors are not 64-bit.</p>
+          </details>
+          <details>
+            <summary>How do I check the download arrived intact?</summary>
+            <p>The file's sha256 is <code>34d809c84aa392c643bb1bcc8dbdd49f27a67bef7f1c585403f1c55957f7f489</code>. On Windows run <code>certutil -hashfile viewifi-kit-1.0.0-arm64.img.xz SHA256</code>, and on Linux or macOS <code>sha256sum</code> or <code>shasum -a 256</code>. If it matches, the file is intact.</p>
+          </details>
+          <details>
+            <summary>What is the default password on the image?</summary>
+            <p>There is none. The image ships with a random password that is discarded while it is being built, so nobody can get in until you choose your own in the wizard. That password covers both the panel and the system user. Remote access over SSH is disabled.</p>
+          </details>
+          <details>
+            <summary>Can I start over if I get the setup wrong?</summary>
+            <p>Yes. Power off the Pi, take out the microSD, put it in your computer and create an empty file named <code>viewifi-reset.txt</code> on the boot partition. On the next boot the Pi forgets its configuration and shows the <code>Viewifi-Setup</code> network again.</p>
+          </details>
+          <details>
+            <summary>The Viewifi-Setup network does not appear</summary>
+            <p>Give it three minutes from power-on. If it still does not show, unplug the power and plug it back in. That network only appears while the Pi is unconfigured: if you already set it up, it will not come back until you do the factory reset.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CTA ===================== -->
+    <section class="section cta-section">
+      <div class="container">
+        <div class="cta-card reveal">
+          <h2>Download the image</h2>
+          <p>Free, no sign-up and no ads. All you need is a Raspberry Pi and a card.</p>
+          <div class="hero-cta center">
+            <a class="btn btn-filled btn-lg" href="https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-kit-1.0.0-arm64.img.xz">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5 20h14v-2H5v2zM12 2 5.5 12h4v6h5v-6h4L12 2z"/></svg>
+              <span>Download the image</span>
+            </a>
+            <a class="btn btn-outline btn-lg" href="/en/docs/">Full documentation</a>
+          </div>
+          <p class="cta-note">~500 MB · Raspberry Pi 3, 4 and 5 · version 1.0.0</p>
+        </div>
+
+        <div class="container narrow" style="padding:0">
+          <nav class="docs-next" aria-label="Related links">
+            <a href="/en/docs/">
+              <span>Next</span>
+              <strong>Host documentation →</strong>
+            </a>
+            <a href="/en/#pricing">
+              <span>Plans</span>
+              <strong>What Pro adds →</strong>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="/en/">
+          <svg class="brand-mark" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true" focusable="false">
+            <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
+            <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span>Viewifi</span>
+        </a>
+        <p class="footer-tag">Your WiFi, your guard.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="/en/">Home</a>
+        <a href="/en/#pricing">Pricing</a>
+        <a href="/en/docs/">Docs</a>
+        <a href="/en/business/">Business</a>
+        <a href="/kit/" hreflang="es" lang="es">Español</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p>&copy; 2026 Viewifi. No ads, no data selling. Viewifi is a notification system, not a certified alarm service. Raspberry Pi is a trademark of Raspberry Pi Ltd.</p>
+    </div>
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -116,6 +116,32 @@
         ]
       },
       {
+        "@type": "SoftwareApplication",
+        "@id": "https://viewifi.tech/en/#kit",
+        "name": "Viewifi Kit for Raspberry Pi",
+        "alternateName": "Preconfigured Viewifi image for Raspberry Pi",
+        "url": "https://viewifi.tech/en/docs/#kit",
+        "description": "A ready-to-flash system image: 64-bit Raspberry Pi OS with the Viewifi WiFi motion sensor already installed and a setup wizard you open from your phone. You never need a terminal.",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Raspberry Pi OS 64-bit; Raspberry Pi 3, 4 and 5",
+        "softwareVersion": "1.0.0",
+        "fileSize": "500 MB",
+        "inLanguage": ["en", "es"],
+        "isAccessibleForFree": true,
+        "publisher": { "@id": "https://viewifi.tech/#organization" },
+        "downloadUrl": "https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-kit-1.0.0-arm64.img.xz",
+        "installUrl": "https://viewifi.tech/en/docs/#kit",
+        "releaseNotes": "https://github.com/pipe9494/viewifi-releases/releases/tag/v1.0.0",
+        "softwareHelp": { "@type": "WebPage", "url": "https://viewifi.tech/en/docs/" },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://viewifi.tech/en/#kit"
+        }
+      },
+      {
         "@type": "FAQPage",
         "@id": "https://viewifi.tech/en/#faq",
         "inLanguage": "en",
@@ -143,6 +169,11 @@
           },
           {
             "@type": "Question",
+            "name": "Why a subscription and not a one-time payment?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Because the value is continuous and so are the costs: keeping your history in the cloud and syncing between hosts is paid for every month. We would rather charge an honest low price than run ads or sell data, which is what other free security apps do. The yearly plan is 44% cheaper." }
+          },
+          {
+            "@type": "Question",
             "name": "Does my data or audio leave my home?",
             "acceptedAnswer": { "@type": "Answer", "text": "Signal analysis happens entirely on the host device. Photo and audio capture are off by default and only run if you switch them on. Alerts go to your own Telegram bot, with your own token." }
           },
@@ -150,6 +181,11 @@
             "@type": "Question",
             "name": "Can I watch more than one place on the same account?",
             "acceptedAnswer": { "@type": "Answer", "text": "Yes. The free plan covers one host. With Pro you register as many host devices as you want under the same user and pick which one receives each command, or send it to all of them at once." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a ready-made image for Raspberry Pi?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes, and it is free. The Viewifi Kit is a 64-bit Raspberry Pi OS image with the sensor already installed: flash it to the microSD with Raspberry Pi Imager, power up the Pi, and a WiFi network called Viewifi-Setup appears. Join it from your phone, open http://10.42.0.1 and set the network, the panel password and Telegram from the browser. Not a single command needed." }
           },
           {
             "@type": "Question",
@@ -192,6 +228,7 @@
         <a href="#how">How it works</a>
         <a href="#pricing">Pricing</a>
         <a href="#download">Downloads</a>
+        <a href="/en/kit/">Raspberry Pi kit</a>
         <a href="/en/docs/">Docs</a>
         <a href="/en/business/">Business</a>
         <a href="#faq">FAQ</a>
@@ -476,7 +513,7 @@
       <div class="container">
         <div class="section-head reveal">
           <h2>Downloads</h2>
-          <p>Pick your sensor: an Android phone you no longer use, or a Linux machine that stays on 24/7.</p>
+          <p>An Android phone you no longer use, or a Linux machine that stays on. If a whole Raspberry Pi is going to be the sensor, the full image is the short path.</p>
         </div>
         <div class="card-grid">
           <div class="card reveal">
@@ -499,25 +536,25 @@
             <a class="btn btn-outline btn-sm" href="/en/docs/">Documentation</a>
             <p class="dl-note">Debian / Ubuntu and derivatives · 64-bit · MIT</p>
           </div>
-          <div class="card reveal">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="8.5" cy="10" r="1"/><circle cx="8.5" cy="14" r="1"/><path d="M13 10h5M13 14h5"/></svg>
-            </div>
-            <h3>Raspberry Pi</h3>
-            <p>A silent, low-power sensor that is always on. The same executable, built for ARM64.</p>
-            <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-host-linux-arm64">Download ARM64</a>
-            <a class="btn btn-outline btn-sm" href="/en/docs/">Documentation</a>
-            <p class="dl-note">Raspberry Pi 3/4/5 · 64-bit OS · free</p>
-          </div>
           <div class="card card-kit reveal" id="kit">
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8"/><path d="M2 8h20l-2-4H4L2 8z"/><path d="M10 12h4"/></svg>
             </div>
-            <h3>Raspberry Pi kit <span class="tag-pro">Free</span></h3>
-            <p>A ready-to-flash system image: write it to the microSD, power up, and set everything from your phone. No terminal, not a single command.</p>
+            <h3>Raspberry Pi — full image <span class="tag-pro">Recommended</span></h3>
+            <p><strong>Starting from scratch.</strong> The whole system in one file: flash it to the microSD, power up the Pi and set it up from your phone. You never open a terminal.</p>
             <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-kit-1.0.0-arm64.img.xz">Download image</a>
-            <a class="btn btn-outline btn-sm" href="/en/docs/#kit">How to use it</a>
-            <p class="dl-note">~500 MB · Pi 3, 4 and 5 · free</p>
+            <a class="btn btn-outline btn-sm" href="/en/kit/">Kit guide</a>
+            <p class="dl-note">~500 MB · Pi 3, 4 and 5 · wipes the card · free</p>
+          </div>
+          <div class="card reveal" id="pi-binary">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="8.5" cy="10" r="1"/><circle cx="8.5" cy="14" r="1"/><path d="M13 10h5M13 14h5"/></svg>
+            </div>
+            <h3>Raspberry Pi — program only</h3>
+            <p><strong>Pi already doing other things?</strong> Install just the executable, without touching the system you already run. Three commands in a terminal.</p>
+            <a class="btn btn-filled btn-sm" href="https://github.com/pipe9494/viewifi-releases/releases/latest/download/viewifi-host-linux-arm64">Download ARM64</a>
+            <a class="btn btn-outline btn-sm" href="/en/docs/#install">Documentation</a>
+            <p class="dl-note">~15 MB · keeps your system · terminal required</p>
           </div>
         </div>
 
@@ -558,6 +595,10 @@
           <details>
             <summary>Can I watch more than one place on the same account?</summary>
             <p>Yes. The free plan covers one host. With Pro you register as many host devices as you want under the same user and pick which one receives each command, or send it to all of them at once. For multiple sites with a central panel, see the <a href="/en/business/">Business plan</a>.</p>
+          </details>
+          <details>
+            <summary>Is there a ready-made image for Raspberry Pi?</summary>
+            <p>Yes, and it is free. The <a href="/en/kit/">Viewifi Kit</a> is a 64-bit Raspberry Pi OS image with the sensor already installed: flash it to the microSD with Raspberry Pi Imager, power up the Pi, and a WiFi network called <code>Viewifi-Setup</code> appears. Join it from your phone, open <code>http://10.42.0.1</code> and set the network, the panel password and Telegram from the browser. Not a single command needed.</p>
           </details>
           <details>
             <summary>Can I use a Raspberry Pi or a Linux PC as the sensor?</summary>

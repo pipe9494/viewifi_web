@@ -1327,3 +1327,12 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 640px) {
   .dl-row, .docs-next, .docs-toc ol { grid-template-columns: 1fr; }
 }
+
+/* Rejilla de dos pasos (página del kit). Como clase y no en línea: un
+   style="" gana a la media query y dejaba la rejilla en dos columnas en el
+   móvil, desbordando la pantalla. */
+.steps-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 720px) {
+  .steps-2 { grid-template-columns: 1fr; }
+}
