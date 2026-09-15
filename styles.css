@@ -1438,3 +1438,60 @@ body.con-anuncio { padding-top: var(--alto-anuncio, 46px); }
 @media (prefers-reduced-motion: reduce) {
   .vw-anuncio-punto { box-shadow: none; }
 }
+
+
+/* ============================================================
+   Barra de navegación — que quepa de verdad
+   ------------------------------------------------------------
+   .container nunca pasa de 1120px, así que la barra dispone de
+   1120px en CUALQUIER pantalla, por grande que sea. La fila de
+   enlaces en español necesitaba más que eso, y por eso "Kit
+   Raspberry Pi" se partía en varias líneas y se salía de los
+   64px de alto de la barra. Tres arreglos:
+
+     · las etiquetas ya no se parten por la mitad;
+     · el hueco entre enlaces baja de 26 a 20px;
+     · por debajo de 1240px manda el menú de hamburguesa, que es
+       donde los enlaces dejan de caber de verdad. Antes ese
+       cambio ocurría a 860px, y entre medias la barra se rompía.
+
+   El menú de hamburguesa ya mostraba .nav-links y .nav-actions,
+   así que no se pierde ningún enlace al plegarse.
+   ============================================================ */
+
+.nav-links { gap: 20px; }
+.nav-links a { white-space: nowrap; }
+
+/* Enlace a la cuenta: mismo peso visual que el resto del menú.
+   Como botón ocupaba 120px y no caben en esta barra. */
+.nav-cuenta {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.nav-cuenta:hover { color: var(--accent-cyan); }
+
+@media (max-width: 1240px) {
+  .nav-links, .nav-actions { display: none; }
+  .nav-burger { display: flex; margin-left: auto; }
+
+  .topbar.menu-open .nav-links {
+    display: flex;
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(10, 14, 20, 0.97);
+    border-bottom: 1px solid var(--line);
+    padding: 8px 24px 16px;
+  }
+  .topbar.menu-open .nav-links a { padding: 13px 0; }
+  .topbar.menu-open .nav-actions {
+    display: flex;
+    position: absolute;
+    top: 64px; right: 24px;
+    transform: translateY(-54px);
+  }
+}
