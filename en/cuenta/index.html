@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>My account — Viewifi</title>
+  <meta name="description" content="Sign in to your Viewifi account: your plan, your payments and your Pro subscription." />
+
+  <link rel="canonical" href="https://viewifi.tech/en/cuenta/" />
+  <link rel="alternate" hreflang="es" href="https://viewifi.tech/cuenta/" />
+  <link rel="alternate" hreflang="en" href="https://viewifi.tech/en/cuenta/" />
+
+  <!-- Utility page: nothing for a search engine, and half of it sits behind
+       the sign-in. People reach it from the menu, not from Google. -->
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#0A0E14" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/cuenta/cuenta.css" />
+</head>
+<body>
+  <a class="skip-link" href="#principal">Skip to content</a>
+
+  <header class="topbar">
+    <div class="container nav-inner">
+      <a class="brand" href="/en/" aria-label="Viewifi — home">
+        <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+          <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
+          <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span>Viewifi</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/en/#pricing">Pricing</a>
+        <a href="/en/#download">Downloads</a>
+        <a href="/en/kit/">Raspberry Pi kit</a>
+        <a href="/en/docs/">Docs</a>
+        <a href="/en/business/">Business</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="lang-toggle" href="/cuenta/" hreflang="es" lang="es" aria-label="Ver en español">ES</a>
+        <button class="btn btn-outline btn-sm" type="button" id="btn-salir" hidden>Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="principal" class="cuenta-main">
+    <div class="container">
+
+      <!-- ====================== Checking the session ====================== -->
+      <section id="pantalla-carga" class="pantalla visible" aria-live="polite">
+        <p class="cargando">Loading…</p>
+      </section>
+
+      <!-- ========================= Sign in / up ========================= -->
+      <section id="pantalla-acceso" class="pantalla">
+        <div class="acceso-wrap">
+          <h1>Your account</h1>
+          <p class="cuenta-correo" style="margin-bottom:22px">
+            The same account you use in the Android app and on the Linux host.
+          </p>
+
+          <div class="acceso-tabs" role="tablist">
+            <button class="acceso-tab" type="button" id="tab-entrar"
+                    role="tab" aria-selected="true" aria-controls="form-entrar">Sign in</button>
+            <button class="acceso-tab" type="button" id="tab-registro"
+                    role="tab" aria-selected="false" aria-controls="form-registro">Create account</button>
+          </div>
+
+          <p class="aviso-caja aviso-error" id="acceso-aviso" hidden></p>
+
+          <form id="form-entrar" novalidate>
+            <div class="campo">
+              <label for="entrar-correo">Email</label>
+              <input id="entrar-correo" type="email" autocomplete="username" required
+                     placeholder="you@email.com" />
+            </div>
+            <div class="campo">
+              <label for="entrar-clave">Password</label>
+              <input id="entrar-clave" type="password" autocomplete="current-password" required />
+            </div>
+            <button class="btn btn-filled btn-block" type="submit" id="btn-entrar">Sign in</button>
+          </form>
+
+          <form id="form-registro" novalidate hidden>
+            <div class="campo">
+              <label for="registro-nombre">Name <span class="campo-ayuda">(optional)</span></label>
+              <input id="registro-nombre" type="text" autocomplete="name" />
+            </div>
+            <div class="campo">
+              <label for="registro-correo">Email</label>
+              <input id="registro-correo" type="email" autocomplete="email" required
+                     placeholder="you@email.com" />
+            </div>
+            <div class="campo">
+              <label for="registro-clave">Password</label>
+              <input id="registro-clave" type="password" autocomplete="new-password" minlength="8" required />
+              <p class="campo-ayuda">Eight characters or more.</p>
+            </div>
+            <div class="campo">
+              <label for="registro-clave2">Repeat the password</label>
+              <input id="registro-clave2" type="password" autocomplete="new-password" required />
+            </div>
+            <button class="btn btn-filled btn-block" type="submit" id="btn-registro">Create account</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- =========================== My account =========================== -->
+      <section id="pantalla-cuenta" class="pantalla">
+        <div class="cuenta-cabecera">
+          <div>
+            <h1>My account</h1>
+            <p class="cuenta-correo" id="cuenta-correo"></p>
+          </div>
+          <button class="btn btn-outline btn-sm" type="button" id="btn-actualizar">Refresh</button>
+        </div>
+
+        <div class="cuenta-grid">
+          <div class="ficha" id="ficha-plan"></div>
+          <div class="ficha" id="ficha-pagos"></div>
+        </div>
+
+        <!-- ========================== Checkout ========================== -->
+        <div class="ficha" id="bloque-contratar" style="margin-top:20px" hidden>
+          <h2>Choose your plan</h2>
+
+          <div class="planes-elegir" id="planes-elegir"></div>
+
+          <form id="form-tarjeta" novalidate autocomplete="on">
+            <div class="campo">
+              <label for="tar-titular">Cardholder name</label>
+              <input id="tar-titular" type="text" autocomplete="cc-name" required
+                     placeholder="As printed on the card" />
+            </div>
+            <div class="campo">
+              <label for="tar-numero">Card number</label>
+              <input id="tar-numero" type="text" inputmode="numeric" autocomplete="cc-number"
+                     required placeholder="4242 4242 4242 4242" />
+            </div>
+            <div class="campo-fila">
+              <div class="campo">
+                <label for="tar-mes">Expires (MM)</label>
+                <input id="tar-mes" type="text" inputmode="numeric" autocomplete="cc-exp-month"
+                       maxlength="2" required placeholder="08" />
+              </div>
+              <div class="campo">
+                <label for="tar-anio">Expires (YY)</label>
+                <input id="tar-anio" type="text" inputmode="numeric" autocomplete="cc-exp-year"
+                       maxlength="2" required placeholder="29" />
+              </div>
+            </div>
+            <div class="campo-fila">
+              <div class="campo">
+                <label for="tar-cvc">Security code</label>
+                <input id="tar-cvc" type="text" inputmode="numeric" autocomplete="cc-csc"
+                       maxlength="4" required placeholder="123" />
+              </div>
+              <div class="campo">
+                <label for="tar-cuotas">Instalments</label>
+                <select id="tar-cuotas">
+                  <option value="1" selected>1 instalment</option>
+                  <option value="3">3 instalments</option>
+                  <option value="6">6 instalments</option>
+                  <option value="12">12 instalments</option>
+                </select>
+              </div>
+            </div>
+
+            <label class="campo-check">
+              <input type="checkbox" id="tar-terminos" />
+              <span>I accept the <a href="/en/docs/" target="_blank" rel="noopener">terms of service</a>
+              and the processing of my personal data.</span>
+            </label>
+
+            <p class="aviso-caja aviso-error" id="contratar-aviso" hidden></p>
+
+            <button class="btn btn-filled btn-block" type="submit" id="btn-pagar">Pay and activate</button>
+
+            <p class="pago-seguro">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6l8-4z"
+                      stroke="var(--accent-green)" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+              Your card details go straight to Wompi. They never touch our servers.
+            </p>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="/en/">
+          <svg class="brand-mark" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true" focusable="false">
+            <circle cx="16" cy="16" r="4" fill="var(--accent-green)"/>
+            <path d="M8 24a11.3 11.3 0 0 1 16 0" stroke="var(--accent-cyan)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M4.5 20.5a16 16 0 0 1 23 0" stroke="var(--primary)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span>Viewifi</span>
+        </a>
+        <p class="footer-tag">Your WiFi, your guardian.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="/en/#pricing">Pricing</a>
+        <a href="/en/docs/">Docs</a>
+        <a href="/en/business/">Business</a>
+        <a href="/cuenta/" hreflang="es" lang="es">Español</a>
+      </nav>
+    </div>
+    <div class="container footer-legal">
+      <p>&copy; 2026 Viewifi. No ads, no data selling.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/app.js" defer></script>
+  <script src="/cuenta/cuenta.js" defer></script>
+</body>
+</html>

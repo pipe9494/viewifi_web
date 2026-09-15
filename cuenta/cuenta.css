@@ -1,0 +1,188 @@
+/* ============================================================================
+   Área de cliente — estilos propios
+   ----------------------------------------------------------------------------
+   Hereda los tokens de /styles.css (--bg, --surface, --primary…). Aquí solo
+   va lo que no existe en la web pública: el formulario de tarjeta, la ficha
+   del plan y la tabla de pagos.
+   ============================================================================ */
+
+/* Una clase con `display` gana al atributo `hidden` del navegador, y en
+   /styles.css la clase .btn trae display:inline-flex. Sin esta línea, un
+   botón marcado con hidden se sigue viendo — que es exactamente lo que le
+   pasaba al botón de salir en la pantalla de acceso. */
+[hidden] { display: none !important; }
+
+.cuenta-main { padding: 96px 0 72px; min-height: 70vh; }
+
+.cuenta-cabecera {
+  display: flex; flex-wrap: wrap; gap: 16px;
+  align-items: center; justify-content: space-between;
+  margin-bottom: 28px;
+}
+.cuenta-cabecera h1 { margin: 0 0 4px; font-size: clamp(1.5rem, 3vw, 2rem); }
+.cuenta-correo { margin: 0; color: var(--text-dim); font-size: .95rem; word-break: break-all; }
+
+/* ------------------------------------------------------------------ pantallas */
+
+.pantalla { display: none; }
+.pantalla.visible { display: block; }
+
+.cargando {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; padding: 80px 0; color: var(--text-dim);
+}
+.cargando::before {
+  content: ''; width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--line); border-top-color: var(--primary);
+  animation: cuenta-giro .8s linear infinite;
+}
+@keyframes cuenta-giro { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .cargando::before { animation-duration: 2.4s; }
+}
+
+/* --------------------------------------------------------------------- acceso */
+
+.acceso-wrap { max-width: 440px; margin: 0 auto; }
+
+.acceso-tabs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 4px; margin-bottom: 20px;
+}
+.acceso-tab {
+  appearance: none; border: 0; background: transparent; cursor: pointer;
+  color: var(--text-dim); font: inherit; font-weight: 600;
+  padding: 10px 12px; border-radius: 10px;
+  transition: background .18s ease, color .18s ease;
+}
+.acceso-tab[aria-selected="true"] { background: var(--surface-high); color: var(--text); }
+.acceso-tab:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* --------------------------------------------------------------- formularios */
+
+.campo { margin-bottom: 14px; }
+.campo label {
+  display: block; margin-bottom: 6px;
+  font-size: .85rem; font-weight: 600; color: var(--text-dim);
+}
+.campo input,
+.campo select {
+  width: 100%; box-sizing: border-box;
+  padding: 12px 14px;
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  font: inherit;
+}
+.campo input:focus, .campo select:focus {
+  outline: none; border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(27, 152, 224, .18);
+}
+.campo input[aria-invalid="true"] { border-color: #ff6b6b; }
+.campo-ayuda { margin: 6px 0 0; font-size: .78rem; color: var(--text-dim); }
+
+.campo-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.campo-check {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin: 18px 0; font-size: .88rem; color: var(--text-dim);
+}
+.campo-check input { margin-top: 3px; flex: 0 0 auto; }
+.campo-check a { color: var(--primary); }
+
+/* ------------------------------------------------------------------- avisos */
+
+.aviso-caja {
+  padding: 12px 14px; border-radius: var(--radius-sm);
+  font-size: .9rem; margin: 14px 0; border: 1px solid var(--line);
+}
+.aviso-error { background: rgba(255, 107, 107, .08); border-color: rgba(255, 107, 107, .35); color: #ffb3b3; }
+.aviso-ok    { background: rgba(0, 230, 118, .08); border-color: rgba(0, 230, 118, .35); color: #8ff0bd; }
+.aviso-info  { background: rgba(27, 152, 224, .08); border-color: rgba(27, 152, 224, .35); color: #a8d8f5; }
+
+/* --------------------------------------------------------------- ficha plan */
+
+.cuenta-grid {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  align-items: start;
+}
+
+.ficha {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 24px;
+}
+.ficha h2 { margin: 0 0 16px; font-size: 1.05rem; }
+.ficha-sub { margin: -8px 0 14px; font-size: 1.15rem; font-weight: 700; color: var(--accent-cyan); }
+
+.dato { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.dato:last-child { border-bottom: 0; }
+.dato dt { color: var(--text-dim); font-size: .88rem; }
+.dato dd { margin: 0; text-align: right; font-weight: 600; font-size: .92rem; }
+.ficha dl { margin: 0; }
+
+.insignia {
+  display: inline-block; padding: 3px 10px; border-radius: 999px;
+  font-size: .74rem; font-weight: 700; letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.insignia-activa    { background: rgba(0, 230, 118, .14); color: var(--accent-green); }
+.insignia-pendiente { background: rgba(27, 152, 224, .14); color: var(--primary-hover); }
+.insignia-morosa    { background: rgba(255, 176, 32, .14); color: #ffb020; }
+.insignia-cancelada,
+.insignia-expirada  { background: rgba(255, 255, 255, .07); color: var(--text-dim); }
+
+.tarjeta-guardada { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+.tarjeta-puntos { letter-spacing: .18em; color: var(--text-dim); }
+/* El espaciado de arriba es para los puntos de la tarjeta y solo para ellos:
+   aplicado a una palabra la deja con aspecto de t í t u l o. */
+.dato-nota { color: var(--text-dim); font-weight: 500; letter-spacing: normal; }
+
+/* ------------------------------------------------------------------- pagos */
+
+.tabla-pagos { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.tabla-pagos th, .tabla-pagos td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.tabla-pagos th { color: var(--text-dim); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; }
+.tabla-pagos td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.tabla-scroll { overflow-x: auto; margin: 0 -8px; padding: 0 8px; }
+
+.vacio { color: var(--text-dim); font-size: .9rem; margin: 8px 0 0; }
+
+/* -------------------------------------------------------------- contratar */
+
+.planes-elegir { display: grid; gap: 12px; margin-bottom: 22px; }
+
+.plan-opcion {
+  display: flex; gap: 12px; align-items: flex-start; cursor: pointer;
+  padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--bg); transition: border-color .18s ease, background .18s ease;
+}
+.plan-opcion:hover { border-color: rgba(27, 152, 224, .5); }
+.plan-opcion input { margin-top: 4px; flex: 0 0 auto; }
+.plan-opcion:has(input:checked) { border-color: var(--primary); background: var(--surface-high); }
+.plan-opcion-nombre { font-weight: 700; display: block; }
+.plan-opcion-precio { display: block; margin-top: 3px; font-size: .9rem; }
+.plan-opcion-desc { display: block; margin-top: 4px; font-size: .82rem; color: var(--text-dim); }
+
+.pago-seguro {
+  display: flex; gap: 8px; align-items: center;
+  margin-top: 16px; font-size: .8rem; color: var(--text-dim);
+}
+
+/* ------------------------------------------------------------- confirmación */
+
+.confirmar {
+  margin-top: 16px; padding: 16px;
+  border: 1px solid rgba(255, 176, 32, .35);
+  background: rgba(255, 176, 32, .07);
+  border-radius: var(--radius-sm);
+}
+.confirmar p { margin: 0 0 12px; font-size: .9rem; }
+.confirmar-botones { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.acciones { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 520px) {
+  .campo-fila { grid-template-columns: 1fr; }
+  .cuenta-main { padding-top: 84px; }
+}
