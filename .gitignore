@@ -10,3 +10,8 @@ Thumbs.db
 !.env.ejemplo
 *.pem
 *.key
+
+# El 008_cron.sql rellenado lleva la service_role key dentro, y esa llave salta
+# todo el RLS. Ejecútalo pegándolo en el SQL Editor; si necesitas guardar tu
+# copia con los valores reales, llámala así y se queda fuera del repositorio.
+migraciones/*.local.sql
