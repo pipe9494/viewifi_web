@@ -1495,3 +1495,27 @@ body.con-anuncio { padding-top: var(--alto-anuncio, 46px); }
     transform: translateY(-54px);
   }
 }
+
+
+/* ============================================================
+   Botón «próximamente»
+   ------------------------------------------------------------
+   La ficha de Google Play todavía no está publicada, y enlazar a
+   una ficha que devuelve 404 desde el botón más visible de la
+   portada castiga la confianza del visitante.
+
+   Es un <span>, no un <a>: así no hay enlace roto que rastrear ni
+   que seguir. Cuando la ficha exista, se vuelve a convertir en
+   <a href="..."> y se quita esta clase.
+   ============================================================ */
+.btn-proximamente {
+  cursor: default;
+  pointer-events: none;
+  background: transparent;
+  color: var(--text-dim);
+  /* --line es rgba(255,255,255,.07): con opacidad encima desaparecía y el
+     botón se leía como texto suelto. Borde propio, visible pero discreto. */
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.btn-proximamente svg { opacity: 0.55; }
