@@ -38,7 +38,11 @@
     <input id="login-email" type="email" required autocomplete="username" placeholder="tu@correo.com" />
 
     <label for="login-clave">Contraseña</label>
-    <input id="login-clave" type="password" required autocomplete="current-password" minlength="8" />
+    <!-- Sin minlength: esto es un ACCESO, no un alta. La longitud mínima se
+         exige al crear o cambiar la contraseña, no al escribirla para entrar.
+         Ponerla aquí deja fuera a cualquier cuenta creada antes de la regla
+         (por ejemplo desde el panel de Supabase, que admite 6 caracteres). -->
+    <input id="login-clave" type="password" required autocomplete="current-password" />
 
     <button class="btn btn-filled" type="submit" id="btn-login">Entrar</button>
     <p class="aviso" id="login-error" hidden></p>
