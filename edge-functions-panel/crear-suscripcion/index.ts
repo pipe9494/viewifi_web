@@ -29,14 +29,27 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return responderPreflight(origen);
   if (req.method !== "POST") return error("METODO", "Usa POST.", 405, origen);
 
+  const db = clienteAdmin();
+
+  // --- Interruptor maestro ---------------------------------------------------
+  // Va lo PRIMERO, antes incluso de mirar la configuración de Wompi, para que
+  // con los cobros apagados esto conteste limpiamente aunque no haya ni una
+  // llave puesta. Y va aquí, en el servidor, porque esconder el formulario en
+  // el navegador no impide que alguien llame a esta función con curl.
+  if (!(await ajuste(db, "pagos_activos", false))) {
+    return error(
+      "PAGOS_DESACTIVADOS",
+      "Ahora mismo Viewifi es gratis: no hay ningún plan que contratar.",
+      409, origen,
+    );
+  }
+
   let cfg;
   try {
     cfg = leerConfig();
   } catch (e) {
     return error("CONFIG", "La pasarela de pagos no está configurada.", 500, origen, (e as Error).message);
   }
-
-  const db = clienteAdmin();
 
   // --- Quién llama -----------------------------------------------------------
   const usuario = await usuarioDeLaPeticion(req);

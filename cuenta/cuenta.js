@@ -115,6 +115,8 @@
     noCancelar: 'Keep it',
     canceladaOk: 'Renewal switched off.',
 
+    todoGratis: 'Everything is free right now — nothing to pay for.',
+    sinPlanesAun: 'Paid plans are not open yet. We will let you know when they are.',
     salir: 'Sign out',
     actualizar: 'Refresh',
     sinLlaveWompi: 'Payments are not set up yet on this site. The public Wompi key is missing from /cuenta/cuenta.js.',
@@ -191,6 +193,8 @@
     noCancelar: 'Mantenerla',
     canceladaOk: 'Renovación apagada.',
 
+    todoGratis: 'Ahora mismo todo es gratis: no hay nada que pagar.',
+    sinPlanesAun: 'Los planes de pago todavía no están abiertos. Te avisamos cuando lo estén.',
     salir: 'Salir',
     actualizar: 'Actualizar',
     sinLlaveWompi: 'Los pagos todavía no están configurados en este sitio. Falta la llave pública de Wompi en /cuenta/cuenta.js.',
@@ -217,6 +221,7 @@
     COBRO_ERROR: 'We could not process the payment. You have not been charged.',
     SIN_SUSCRIPCION: 'There is no active subscription.',
     SIN_PERMISO: 'You cannot cancel someone else’s subscription.',
+    PAGOS_DESACTIVADOS: 'Viewifi is free right now: there is no plan to subscribe to.',
     CONFIG: 'The payment gateway is not configured.',
     BD: 'We could not complete the operation. You have not been charged.'
   };
@@ -309,7 +314,7 @@
 
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   var yo = null;
-  var estado = { perfil: null, suscripcion: null, pagos: [], planes: [] };
+  var estado = { perfil: null, suscripcion: null, pagos: [], planes: [], pagosActivos: false };
 
   function invocar(nombre, cuerpo) {
     return sb.auth.getSession().then(function (r) {
@@ -437,13 +442,17 @@
         sb.from('planes')
           .select('codigo, nombre_es, nombre_en, descripcion_es, descripcion_en, intervalo,' +
                   ' precio_cop_centavos, precio_usd_centavos, orden')
-          .neq('intervalo', 'ninguno').order('orden', { ascending: true })
+          .neq('intervalo', 'ninguno').order('orden', { ascending: true }),
+        // Interruptor maestro de cobros. Sale por la vista ajustes_publicos,
+        // que solo expone las claves marcadas como públicas.
+        sb.from('ajustes_publicos').select('valor').eq('clave', 'pagos_activos').maybeSingle()
       ]);
     }).then(function (res) {
       estado.perfil = res[0].data || { email: yo.email };
       estado.suscripcion = res[1].data || null;
       estado.pagos = res[2].data || [];
       estado.planes = res[3].data || [];
+      estado.pagosActivos = (res[4] && res[4].data && res[4].data.valor) === true;
 
       if (estado.perfil && estado.perfil.bloqueado) {
         mostrar('pantalla-acceso');
@@ -494,12 +503,17 @@
     var caja = $('#ficha-plan');
 
     if (!viva(s)) {
+      var accion = estado.pagosActivos
+        ? '<div class="acciones">' +
+            '<button class="btn btn-filled" type="button" id="btn-ir-contratar">' + esc(T.contratar) + '</button>' +
+          '</div>'
+        : '<p class="aviso-caja aviso-info">' + esc(T.todoGratis) + ' ' + esc(T.sinPlanesAun) + '</p>';
+
       caja.innerHTML =
         '<h2>' + esc(T.tuPlan) + '</h2>' +
         '<p class="vacio">' + esc(T.sinPlan) + '</p>' +
-        '<div class="acciones">' +
-          '<button class="btn btn-filled" type="button" id="btn-ir-contratar">' + esc(T.contratar) + '</button>' +
-        '</div>';
+        accion;
+
       var ir = $('#btn-ir-contratar');
       if (ir) ir.addEventListener('click', function () {
         $('#bloque-contratar').hidden = false;
@@ -623,6 +637,10 @@
   function pintarContratar() {
     var bloque = $('#bloque-contratar');
     var lista = $('#planes-elegir');
+
+    // Cobros apagados desde el panel: no hay nada que contratar. El servidor
+    // lo rechaza igual, esto solo evita enseñar un formulario que no sirve.
+    if (!estado.pagosActivos) { bloque.hidden = true; return; }
 
     // Con una suscripción viva no se puede abrir otra: la función lo rechaza
     // con YA_SUSCRITO, así que ni siquiera enseñamos el formulario.

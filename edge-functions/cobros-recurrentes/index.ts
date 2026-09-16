@@ -33,15 +33,31 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ ok: false, error: "no autorizado" }), { status: 401 });
   }
 
+  const db = clienteAdmin();
+  const r: Resumen = { conciliados: 0, cobrados: 0, rechazados: 0, vencidos: 0, errores: [] };
+
+  // --- Interruptor maestro ---------------------------------------------------
+  // Con los cobros apagados esta tanda no hace absolutamente nada, y sale antes
+  // de leer la configuración de Wompi: así el cron diario puede estar programado
+  // sin que nadie haya puesto todavía una llave, en vez de fallar con un 500
+  // cada madrugada.
+  //
+  // Nadie pierde el servicio mientras está apagado: al no intentarse el cobro,
+  // ninguna suscripción se marca morosa ni se vence. Un pago que se quedara en
+  // el aire espera a que se vuelva a encender para conciliarse.
+  if (!(await ajuste(db, "pagos_activos", false))) {
+    return new Response(JSON.stringify({
+      ok: true, pagos_activos: false, ...r,
+      mensaje: "Los cobros están desactivados en Ajustes. No se hizo nada.",
+    }), { status: 200, headers: { "Content-Type": "application/json" } });
+  }
+
   let cfg;
   try {
     cfg = leerConfig();
   } catch (e) {
     return new Response(JSON.stringify({ ok: false, error: (e as Error).message }), { status: 500 });
   }
-
-  const db = clienteAdmin();
-  const r: Resumen = { conciliados: 0, cobrados: 0, rechazados: 0, vencidos: 0, errores: [] };
 
   const reintentosMax = Number(await ajuste(db, "reintentos_max", 3));
   const diasReintento = (await ajuste<number[]>(db, "reintento_dias", [1, 3, 5])) ?? [1, 3, 5];

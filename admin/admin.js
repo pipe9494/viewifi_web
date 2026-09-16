@@ -767,6 +767,7 @@
       (r.data || []).forEach(function (f) { a[f.clave] = f.valor; });
       estado.ajustes = a;
 
+      $('#sw-pagos').checked = a.pagos_activos === true;
       $('#sw-registro').checked = a.registro_abierto !== false;
       $('#sw-acceso').checked = a.acceso_abierto !== false;
       $('#msg-es').value = a.mensaje_cerrado_es || '';
@@ -789,7 +790,15 @@
       return;
     }
 
+    if ($('#sw-pagos').checked && !estado.ajustes.pagos_activos &&
+        !confirm('Vas a activar los cobros. A partir de ahora los usuarios podrán ' +
+                 'contratar planes de pago y el cron cobrará las renovaciones. ' +
+                 '¿Está Wompi configurado y probado?')) {
+      return;
+    }
+
     var cambios = [
+      { clave: 'pagos_activos', valor: $('#sw-pagos').checked },
       { clave: 'registro_abierto', valor: $('#sw-registro').checked },
       { clave: 'acceso_abierto', valor: $('#sw-acceso').checked },
       { clave: 'mensaje_cerrado_es', valor: $('#msg-es').value.trim() },
