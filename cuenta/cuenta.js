@@ -115,6 +115,15 @@
     noCancelar: 'Keep it',
     canceladaOk: 'Renewal switched off.',
 
+    olvide: 'Forgot your password?',
+    enviarEnlace: 'Send link',
+    enviando: 'Sending…',
+    enlaceEnviado: 'If that address has an account, we just sent a link to set a new password. Check your inbox, and the spam folder.',
+    claveNuevaTitulo: 'Set your new password',
+    guardarClave: 'Save password',
+    guardandoClave: 'Saving…',
+    claveGuardada: 'Password updated. You are signed in.',
+    enlaceCaducado: 'This link is no longer valid. Ask for a new one from the sign-in screen.',
     todoGratis: 'Everything is free right now — nothing to pay for.',
     sinPlanesAun: 'Paid plans are not open yet. We will let you know when they are.',
     salir: 'Sign out',
@@ -193,6 +202,15 @@
     noCancelar: 'Mantenerla',
     canceladaOk: 'Renovación apagada.',
 
+    olvide: '¿Olvidaste tu contraseña?',
+    enviarEnlace: 'Enviar enlace',
+    enviando: 'Enviando…',
+    enlaceEnviado: 'Si esa dirección tiene cuenta, acabamos de mandarle un enlace para crear una contraseña nueva. Míralo en tu bandeja, y en la carpeta de spam.',
+    claveNuevaTitulo: 'Crea tu contraseña nueva',
+    guardarClave: 'Guardar contraseña',
+    guardandoClave: 'Guardando…',
+    claveGuardada: 'Contraseña actualizada. Ya estás dentro.',
+    enlaceCaducado: 'Este enlace ya no vale. Pide otro desde la pantalla de acceso.',
     todoGratis: 'Ahora mismo todo es gratis: no hay nada que pagar.',
     sinPlanesAun: 'Los planes de pago todavía no están abiertos. Te avisamos cuando lo estén.',
     salir: 'Salir',
@@ -274,6 +292,8 @@
     // El botón de salir solo tiene sentido con la sesión abierta.
     var salir = document.getElementById('btn-salir');
     if (salir) salir.hidden = id !== 'pantalla-cuenta';
+    // Volviendo al acceso, el formulario de olvido se recoge.
+    if (id === 'pantalla-acceso') olvidoVisible(false);
   }
 
   function aviso(el, texto, tipo) {
@@ -314,6 +334,18 @@
 
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   var yo = null;
+
+  /* Llegada desde el correo de recuperación.
+     supabase-js detecta el token en la URL y dispara PASSWORD_RECOVERY. Hay que
+     escucharlo ANTES de mirar la sesión: si no, el arranque normal vería una
+     sesión válida y llevaría a la pantalla de cuenta en vez de a la de elegir
+     contraseña. El flag recuerda el evento aunque llegue antes que el arranque. */
+  var recuperando = false;
+  sb.auth.onAuthStateChange(function (evento) {
+    if (evento !== 'PASSWORD_RECOVERY') return;
+    recuperando = true;
+    if (document.getElementById('pantalla-clave-nueva')) mostrar('pantalla-clave-nueva');
+  });
   var estado = { perfil: null, suscripcion: null, pagos: [], planes: [], pagosActivos: false };
 
   function invocar(nombre, cuerpo) {
@@ -345,6 +377,17 @@
 
   /* ============================== Acceso ============================== */
 
+  function olvidoVisible(si) {
+    var linea = $('#linea-olvide'), form = $('#form-olvide'), tabs = $('.acceso-tabs');
+    if (!linea || !form) return;
+    form.hidden = !si;
+    linea.hidden = si;
+    if (tabs) tabs.hidden = si;
+    $('#form-entrar').hidden = si;
+    if (!si) $('#form-registro').hidden = $('#tab-entrar').getAttribute('aria-selected') === 'true';
+    aviso($('#acceso-aviso'), '');
+  }
+
   function tabAcceso(cual) {
     var esEntrar = cual === 'entrar';
     $('#tab-entrar').setAttribute('aria-selected', String(esEntrar));
@@ -364,6 +407,64 @@
   }
 
   function conectarAcceso() {
+    $('#enlace-olvide').addEventListener('click', function (e) {
+      e.preventDefault();
+      $('#olvide-correo').value = $('#entrar-correo').value.trim();
+      olvidoVisible(true);
+    });
+    $('#enlace-volver-entrar').addEventListener('click', function (e) {
+      e.preventDefault();
+      olvidoVisible(false);
+      tabAcceso('entrar');
+    });
+
+    $('#form-olvide').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = $('#btn-olvide');
+      var caja = $('#acceso-aviso');
+      var correo = $('#olvide-correo').value.trim();
+      aviso(caja, '');
+      if (!correoValido(correo)) { aviso(caja, T.correoInvalido); return; }
+
+      btn.disabled = true; btn.textContent = T.enviando;
+      sb.auth.resetPasswordForEmail(correo, {
+        redirectTo: location.origin + location.pathname
+      }).then(function () {
+        // Se contesta lo mismo exista o no la cuenta: decir «ese correo no está
+        // registrado» le confirma a un desconocido qué direcciones tienes.
+        aviso(caja, T.enlaceEnviado, 'ok');
+        $('#form-olvide').reset();
+      }).catch(function () {
+        aviso(caja, T.enlaceEnviado, 'ok');
+      }).then(function () {
+        btn.disabled = false; btn.textContent = T.enviarEnlace;
+      });
+    });
+
+    $('#form-clave-nueva').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = $('#btn-clave-nueva');
+      var caja = $('#clave-aviso');
+      var clave = $('#clave-nueva').value;
+      aviso(caja, '');
+
+      if (clave.length < 8) { aviso(caja, T.claveCorta); return; }
+      if (clave !== $('#clave-nueva2').value) { aviso(caja, T.claveDistinta); return; }
+
+      btn.disabled = true; btn.textContent = T.guardandoClave;
+      sb.auth.updateUser({ password: clave }).then(function (r) {
+        if (r.error) throw r.error;
+        recuperando = false;
+        $('#form-clave-nueva').reset();
+        return cargarCuenta();
+      }).catch(function (e2) {
+        var m = (e2 && e2.message) || '';
+        aviso(caja, /session|expired|invalid|jwt/i.test(m) ? T.enlaceCaducado : (m || T.errorGenerico));
+      }).then(function () {
+        btn.disabled = false; btn.textContent = T.guardarClave;
+      });
+    });
+
     $('#tab-entrar').addEventListener('click', function () { tabAcceso('entrar'); });
     $('#tab-registro').addEventListener('click', function () { tabAcceso('registro'); });
 
@@ -461,8 +562,12 @@
       }
 
       pintarCuenta();
-      mostrar('pantalla-cuenta');
+      // Si mientras se cargaban los datos llegó un PASSWORD_RECOVERY, la pantalla
+      // de elegir contraseña manda: esta carga venía en vuelo desde antes y no
+      // debe robarle el sitio. Sin esto se veían las dos a la vez.
+      if (!recuperando) mostrar('pantalla-cuenta');
     }).catch(function (e) {
+      if (recuperando) return;
       mostrar('pantalla-acceso');
       if (/SIN_SESION/.test(e.message || '')) aviso($('#acceso-aviso'), T.sinSesion, 'info');
       else aviso($('#acceso-aviso'), e.message || T.errorGenerico);
@@ -761,6 +866,9 @@
     $('#btn-actualizar').addEventListener('click', function () { cargarCuenta(); });
 
     sb.auth.getSession().then(function (r) {
+      // Venir del correo de recuperación manda sobre todo lo demás: aunque haya
+      // sesión, lo que toca es elegir contraseña, no entrar en la cuenta.
+      if (recuperando) { mostrar('pantalla-clave-nueva'); return; }
       if (r.data && r.data.session) return cargarCuenta();
       mostrar('pantalla-acceso');
     });

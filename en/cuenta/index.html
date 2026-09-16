@@ -92,6 +92,23 @@
             <button class="btn btn-filled btn-block" type="submit" id="btn-entrar">Sign in</button>
           </form>
 
+          <p class="campo-ayuda" style="text-align:center; margin-top:14px" id="linea-olvide">
+            <a href="#" id="enlace-olvide">Forgot your password?</a>
+          </p>
+
+          <form id="form-olvide" novalidate hidden>
+            <div class="campo">
+              <label for="olvide-correo">Email</label>
+              <input id="olvide-correo" type="email" autocomplete="email" required
+                     placeholder="tu@correo.com" />
+              <p class="campo-ayuda">We will send you a link to set a new password.</p>
+            </div>
+            <button class="btn btn-filled btn-block" type="submit" id="btn-olvide">Send link</button>
+            <p class="campo-ayuda" style="text-align:center; margin-top:14px">
+              <a href="#" id="enlace-volver-entrar">← Back to sign in</a>
+            </p>
+          </form>
+
           <form id="form-registro" novalidate hidden>
             <div class="campo">
               <label for="registro-nombre">Name <span class="campo-ayuda">(optional)</span></label>
@@ -117,6 +134,26 @@
       </section>
 
       <!-- =========================== My account =========================== -->
+      <!-- ===================== Contraseña nueva ===================== -->
+      <section id="pantalla-clave-nueva" class="pantalla">
+        <div class="acceso-wrap">
+          <h1>Set your new password</h1>
+          <p class="aviso-caja aviso-error" id="clave-aviso" hidden></p>
+          <form id="form-clave-nueva" novalidate>
+            <div class="campo">
+              <label for="clave-nueva">New password</label>
+              <input id="clave-nueva" type="password" autocomplete="new-password" minlength="8" required />
+              <p class="campo-ayuda">Eight characters or more.</p>
+            </div>
+            <div class="campo">
+              <label for="clave-nueva2">Repeat the password</label>
+              <input id="clave-nueva2" type="password" autocomplete="new-password" required />
+            </div>
+            <button class="btn btn-filled btn-block" type="submit" id="btn-clave-nueva">Save password</button>
+          </form>
+        </div>
+      </section>
+
       <section id="pantalla-cuenta" class="pantalla">
         <div class="cuenta-cabecera">
           <div>
