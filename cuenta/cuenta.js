@@ -504,6 +504,12 @@
         email: correo,
         password: clave,
         options: {
+          /* Sin esto Supabase usa el Site URL para el enlace del correo, y
+             quien se registra en /en/cuenta/ acaba en la portada en español.
+             Mismo criterio que resetPasswordForEmail, que ya devuelve a la
+             página desde la que se pidió. Las dos rutas tienen que estar en
+             Redirect URLs o Supabase ignora esto y vuelve al Site URL. */
+          emailRedirectTo: location.origin + location.pathname,
           data: {
             nombre: $('#registro-nombre').value.trim(),
             locale: isEN ? 'en' : 'es'
